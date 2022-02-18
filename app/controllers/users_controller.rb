@@ -2,7 +2,7 @@
 
 class UsersController < ApplicationController
   def index
-    @users = User.all
+    @projects = current_user.projects
   end
 
   def my_bugs

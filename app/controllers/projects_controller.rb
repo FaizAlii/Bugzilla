@@ -5,7 +5,7 @@ class ProjectsController < ApplicationController
   before_action :set_new_project, only: %i[create]
 
   def index
-    @projects = Project.all # assign projects on the basis of user roles
+    @projects = current_user.projects.all # assign projects on the basis of user roles
   end
 
   def show; end
@@ -19,8 +19,9 @@ class ProjectsController < ApplicationController
   def create
     respond_to do |format|
       if @project.save
-        format.html { redirect_to project_url(@project), notice: 'Project was successfully created.' }
-        format.json { render :show, status: :created, location: @project }
+        current_user.projects << @project
+        format.html { redirect_to users_path, notice: 'Project was successfully created.' }
+        format.json { render 'users/index', status: :created }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @project.errors, status: :unprocessable_entity }
@@ -52,7 +53,7 @@ class ProjectsController < ApplicationController
   private
 
   def set_project
-    @project = current_user.projects.find(params[:id])
+    @project = Project.find(params[:id])
   end
 
   def set_new_project
@@ -60,6 +61,6 @@ class ProjectsController < ApplicationController
   end
 
   def project_params
-    params.fetch(:project, {})
+    params.require(:project).permit(:name, :description)
   end
 end
