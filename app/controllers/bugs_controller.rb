@@ -14,6 +14,7 @@ class BugsController < ApplicationController
   def show; end
 
   def new
+    @project = Project.find(params[:project_id])
     @bug = Bug.new
   end
 

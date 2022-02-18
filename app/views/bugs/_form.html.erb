@@ -27,7 +27,12 @@
   </div>
 
   <div class="field">
+<<<<<<< HEAD
     <%= form.select :bug_type, options_for_select(Bug.bug_types.map {|k, v| [k.humanize.capitalize, k, {:id => k}]}, @bug.bug_type), autocomplete: "bug_type" %>
+=======
+    <%= form.label :bug_type %>
+    <%= form.number_field :bug_type %>
+>>>>>>> 8d7b9f7 (Bugs::Complete Bugs Module)
   </div>
 
   <div class="field">
