@@ -72,4 +72,8 @@ class UsersController < ApplicationController
 =======
 >>>>>>> c9a716c (Bugs::Bug and Project Associations)
   end
+
+  def my_bugs
+    @bugs = current_user.bugs
+  end
 end
