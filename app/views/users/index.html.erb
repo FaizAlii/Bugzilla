@@ -21,10 +21,18 @@
 =======
 =======
     <li><%= link_to 'Show', project_path(project) %></li>
+<<<<<<< HEAD
 >>>>>>> 8d7b9f7 (Bugs::Complete Bugs Module)
+=======
+    <li><%= link_to 'View Bugs', project_bugs_path(project) %></li>
+>>>>>>> 99bcd73 (Bugs::Manage Bugs and Projects Path Helpers)
   <% end %>
 </ul>
 <%= link_to 'Create New Project', new_project_path %>
 <%= link_to 'Logout', destroy_user_session_path, :method => :delete %>
 <%= link_to 'Edit', edit_user_registration_path %>
+<<<<<<< HEAD
 >>>>>>> 14ff5ea (Bugs::Bug and Project Associations)
+=======
+<%= link_to 'View my Bugs', my_bugs_path(current_user) %>
+>>>>>>> 99bcd73 (Bugs::Manage Bugs and Projects Path Helpers)
