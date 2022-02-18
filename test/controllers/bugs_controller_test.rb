@@ -20,8 +20,13 @@ class BugsControllerTest < ActionDispatch::IntegrationTest
   test 'should create bug' do
     assert_difference('Bug.count') do
       post bugs_url,
+<<<<<<< HEAD
            params: { bug: { deadline: @bug.deadline, description: @bug.description, screenshot: @bug.screenshot,
                             status: @bug.status, title: @bug.title, type: @bug.type } }
+=======
+           params: { bug: { deadline: @bug.deadline, description: @bug.description, screenshot: @bug.screenshot, status: @bug.status, title: @bug.title,
+                            type: @bug.type } }
+>>>>>>> 8d7b9f7 (Bugs::Complete Bugs Module)
     end
 
     assert_redirected_to bug_url(Bug.last)

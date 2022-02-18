@@ -107,7 +107,6 @@ ActiveRecord::Schema.define(version: 2022_02_25_102925) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-<<<<<<< HEAD
   create_table "users_roles", id: false, force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "role_id"
@@ -119,8 +118,6 @@ ActiveRecord::Schema.define(version: 2022_02_25_102925) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-=======
->>>>>>> 14ff5ea (Bugs::Bug and Project Associations)
   add_foreign_key "bug_assignments", "bugs"
   add_foreign_key "bug_assignments", "users"
   add_foreign_key "bugs", "projects"
