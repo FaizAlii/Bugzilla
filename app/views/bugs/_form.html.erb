@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 <%= form_with(model: [project, bug], local: true) do |form| %>
-=======
-<%= form_with(model: bug, local: true) do |form| %>
->>>>>>> 4487068 (Bugs::Generate Bugs Scaffolding)
   <% if bug.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(bug.errors.count, "error") %> prohibited this bug from being saved:</h2>
@@ -17,11 +13,7 @@
 
   <div class="field">
     <%= form.label :title %>
-<<<<<<< HEAD
     <%= form.text_field :title, autofocus: true, autocomplete: "title" %>
-=======
-    <%= form.text_field :title %>
->>>>>>> 4487068 (Bugs::Generate Bugs Scaffolding)
   </div>
 
   <div class="field">
