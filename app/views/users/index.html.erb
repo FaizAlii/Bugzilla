@@ -1,9 +1,13 @@
+<<<<<<< HEAD
 <h1>Welcome: <%= current_user.name %></h1>
+=======
+>>>>>>> 14ff5ea (Bugs::Bug and Project Associations)
 <h2>Your Projects: </h2>
 <ul>
   <% current_user.projects.each do |project| %>
     <li>Name: <%= project.name %></li>
     <li>Description: <%= project.description %></li>
+<<<<<<< HEAD
     <li><%= link_to 'Show', user_project_path(current_user, project) %></li>
     <li><%= link_to 'View Bugs', project_bugs_path(project) %></li>
   <% end %>
@@ -16,3 +20,10 @@
 <%= link_to 'Edit', edit_user_registration_path %>
 <%= link_to 'View my Bugs', my_bugs_path(current_user) %>
 <%= link_to 'View Projects', user_projects_path(current_user) %>
+=======
+  <% end %>
+</ul>
+<%= link_to 'Create New Project', new_project_path(current_user) %>
+<%= link_to 'Logout', destroy_user_session_path, :method => :delete %>
+<%= link_to 'Edit', edit_user_registration_path %>
+>>>>>>> 14ff5ea (Bugs::Bug and Project Associations)
