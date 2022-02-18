@@ -44,18 +44,6 @@ ActiveRecord::Schema.define(version: 2022_02_23_164223) do
     t.datetime "updated_at", null: false
     t.index ["bug_id", "user_id"], name: "by_bug_and_user", unique: true
     t.index ["bug_id"], name: "index_bug_assignments_on_bug_id"
-    t.index ["user_id"], name: "index_bug_assignments_on_user_id"
-  end
-
-  create_table "bugs", force: :cascade do |t|
-    t.string "title", limit: 255, null: false
-    t.text "description"
-    t.datetime "deadline", null: false
-    t.integer "bug_type", null: false
-    t.integer "status", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "project_id", null: false
     t.index ["bug_type"], name: "index_bugs_on_bug_type"
     t.index ["project_id"], name: "index_bugs_on_project_id"
     t.index ["status"], name: "index_bugs_on_status"
