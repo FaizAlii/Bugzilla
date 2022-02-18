@@ -1,6 +1,9 @@
 <ul>
-  <% @users.each do |user| %>
-    <li><%= user.email %></li>
+  <% current_user.projects.each do |project| %>
+    <li>Name: <%= project.name %></li>
+    <li>Description: <%= project.description %></li>
+    <li><%= link_to 'Show', project_path(project) %></li>
   <% end %>
 </ul>
+<%= link_to 'Create New Project', new_project_path %>
 <%= link_to 'Logout', destroy_user_session_path, :method => :delete %>

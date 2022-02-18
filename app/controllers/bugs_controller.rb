@@ -1,26 +1,34 @@
+# frozen_string_literal: true
+
 class BugsController < ApplicationController
-  before_action :set_bug, only: %i[ show edit update destroy ]
+  before_action :set_bug, only: %i[show edit update destroy]
 
   def index
-    @bugs = Bug.all
+    @project = Project.find(params[:project_id])
+    @bugs = @project.bugs.all
   end
 
   def show
+    @project = Project.find(params[:project_id])
   end
 
   def new
+    @project = Project.find(params[:project_id])
     @bug = Bug.new
   end
 
   def edit
+    @project = Project.find(params[:project_id])
   end
 
   def create
-    @bug = Bug.new(bug_params)
+    @project = Project.find(params[:project_id])
+    @bug = @project.bugs.new(bug_params)
 
     respond_to do |format|
       if @bug.save
-        format.html { redirect_to bug_url(@bug), notice: "Bug was successfully created." }
+        current_user.bugs << @bug
+        format.html { redirect_to project_bug_path(@project, @bug), notice: 'Bug was successfully created.' }
         format.json { render :show, status: :created, location: @bug }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -32,7 +40,7 @@ class BugsController < ApplicationController
   def update
     respond_to do |format|
       if @bug.update(bug_params)
-        format.html { redirect_to bug_url(@bug), notice: 'Bug was successfully updated.' }
+        format.html { redirect_to project_bug_path(@project, @bug), notice: 'Bug was successfully updated.' }
         format.json { render :show, status: :ok, location: @bug }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -42,10 +50,11 @@ class BugsController < ApplicationController
   end
 
   def destroy
+    @project = Project.find(params[:project_id])
     @bug.destroy
 
     respond_to do |format|
-      format.html { redirect_to bugs_url, notice: "Bug was successfully destroyed." }
+      format.html { redirect_to project_bugs_path(@project), notice: 'Bug was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -57,6 +66,6 @@ class BugsController < ApplicationController
   end
 
   def bug_params
-    params.require(:bug).permit(:title, :description, :deadline, :type, :status, :screenshot)
+    params.require(:bug).permit(:title, :description, :deadline, :bug_type, :status, :screenshot)
   end
 end

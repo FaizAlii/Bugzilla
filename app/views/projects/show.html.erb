@@ -1,4 +1,9 @@
 <p id="notice"><%= notice %></p>
 
+<h3>Project Owner: <%= @project.users.first.name %></h3>
+<h3>Project Name: <%= @project.name %></h3>
+<h3>Project Description: <%= @project.description %></h3>
+
+<%= link_to 'Create a Bug', new_project_bug_path(@project) %> |
 <%= link_to 'Edit', edit_project_path(@project) %> |
 <%= link_to 'Back', projects_path %>

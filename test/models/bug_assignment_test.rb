@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class BugTest < ActiveSupport::TestCase
+class BugAssignmentTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

@@ -17,7 +17,7 @@
 
 <p>
   <strong>Type:</strong>
-  <%= @bug.type %>
+  <%= @bug.bug_type %>
 </p>
 
 <p>
@@ -30,5 +30,5 @@
   <%= @bug.screenshot %>
 </p>
 
-<%= link_to 'Edit', edit_bug_path(@bug) %> |
-<%= link_to 'Back', bugs_path %>
+<%= link_to 'Edit', edit_project_bug_path(@project, @bug) %> |
+<%= link_to 'Back', project_bugs_path %>
