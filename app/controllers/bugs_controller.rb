@@ -12,6 +12,7 @@ class BugsController < ApplicationController
   def show; end
 
   def new
+    @project = Project.find(params[:project_id])
     @bug = Bug.new
   end
 
@@ -43,6 +44,7 @@ class BugsController < ApplicationController
   end
 
   def destroy
+    @project = Project.find(params[:project_id])
     @bug.destroy
 
     respond_to do |format|
