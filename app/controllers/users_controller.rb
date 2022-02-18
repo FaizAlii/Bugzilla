@@ -8,6 +8,7 @@ class UsersController < ApplicationController
 
   def index
     @projects = current_user.projects
+<<<<<<< HEAD
   end
 
   def my_bugs
@@ -68,5 +69,7 @@ class UsersController < ApplicationController
     @project = Project.find(params[:project_id])
     @user = User.find(params[:user_id])
     authorize @user
+=======
+>>>>>>> c9a716c (Bugs::Bug and Project Associations)
   end
 end
