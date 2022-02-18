@@ -4,8 +4,9 @@ Rails.application.routes.draw do
   resources :bugs
   devise_for :users
 
-  resources :users, only: [:index] do
-    resources :projects
+  resources :users, only: [:index]
+  resources :projects do
+    resources :bugs
   end
 
   resources :projects, only: [] do
