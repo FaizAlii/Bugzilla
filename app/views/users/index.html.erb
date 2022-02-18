@@ -1,9 +1,14 @@
+<h1>Welcome: <%= current_user.name %></h1>
+<h2>Your Projects: </h2>
 <ul>
   <% current_user.projects.each do |project| %>
     <li>Name: <%= project.name %></li>
     <li>Description: <%= project.description %></li>
     <li><%= link_to 'Show', project_path(project) %></li>
+    <li><%= link_to 'View Bugs', project_bugs_path(project) %></li>
   <% end %>
 </ul>
 <%= link_to 'Create New Project', new_project_path %>
 <%= link_to 'Logout', destroy_user_session_path, :method => :delete %>
+<%= link_to 'Edit', edit_user_registration_path %>
+<%= link_to 'View my Bugs', my_bugs_path(current_user) %>

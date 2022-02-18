@@ -2,6 +2,7 @@
 
 class ProjectsController < ApplicationController
   before_action :set_project, only: %i[show edit update destroy]
+  before_action :set_new_project, only: %i[create]
 
   def index
     @projects = Project.all # assign projects on the basis of user roles
@@ -16,8 +17,6 @@ class ProjectsController < ApplicationController
   def edit; end
 
   def create
-    @project = Project.new(project_params)
-
     respond_to do |format|
       if @project.save
         format.html { redirect_to project_url(@project), notice: 'Project was successfully created.' }
@@ -54,6 +53,10 @@ class ProjectsController < ApplicationController
 
   def set_project
     @project = current_user.projects.find(params[:id])
+  end
+
+  def set_new_project
+    @project = Project.new(project_params)
   end
 
   def project_params
