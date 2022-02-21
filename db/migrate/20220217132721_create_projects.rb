@@ -2,9 +2,11 @@
 
 class CreateProjects < ActiveRecord::Migration[5.2]
   def change
+    enable_extension('citext')
+
     create_table :projects do |t|
-      t.string :name
-      t.text :description
+      t.citext :name, null: false, index: { unique: true }
+      t.text :description, limit: 255
 
       t.timestamps
     end
