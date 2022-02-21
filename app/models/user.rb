@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  rolify
+
   has_many :project_assignments, dependent: :destroy
   has_many :projects, through: :project_assignments
   has_many :bug_assignments, dependent: :destroy

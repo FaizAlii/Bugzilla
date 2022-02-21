@@ -14,6 +14,16 @@
   </div>
 
   <div class="field">
+    <%= f.label :roles %>
+    <div class="controls">
+      <% Role.all.each do |role| %>
+          <%= check_box_tag "users_roles[role_ids][]", role.id, @user.role_ids.include?(role.id) %>
+          <%= role.name %><br />
+      <% end %>
+    </div>
+  </div>
+
+  <div class="field">
     <%= f.label :password %>
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>
