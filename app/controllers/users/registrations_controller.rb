@@ -4,6 +4,7 @@ module Users
   class RegistrationsController < Devise::RegistrationsController
     # rubocop:disable Rails/LexicallyScopedActionFilter
     before_action :configure_sign_up_params, only: [:create]
+    after_action :set_role, only: %i[create update]
     before_action :configure_account_update_params, only: [:update]
     # rubocop:enable Rails/LexicallyScopedActionFilter
 
@@ -18,6 +19,13 @@ module Users
     def configure_account_update_params
       # devise_parameter_sanitizer.permit(:name, :email, :password, :password_confirmation)
       devise_parameter_sanitizer.permit(:account_update, keys: [:name])
+    end
+
+    def set_role
+      @user.roles = []
+      params[:users_roles][:role_ids].each do |role|
+        @user.add_role(Role.find(role).name)
+      end
     end
   end
 end
