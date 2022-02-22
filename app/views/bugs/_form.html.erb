@@ -27,13 +27,11 @@
   </div>
 
   <div class="field">
-    <%= form.label :bug_type %>
-    <%= form.number_field :bug_type %>
+    <%= form.select :bug_type, options_for_select(Bug.bug_types.map {|k, v| [k.humanize.capitalize, k]}) %>
   </div>
 
   <div class="field">
-    <%= form.label :status %>
-    <%= form.number_field :status %>
+    <%= form.select :status, options_for_select(Bug.statuses.map {|k, v| [k.humanize.capitalize, k]}) %>
   </div>
 
   <div class="field">
