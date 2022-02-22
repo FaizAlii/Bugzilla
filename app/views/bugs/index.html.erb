@@ -21,8 +21,8 @@
         <td><%= bug.title %></td>
         <td><%= bug.description %></td>
         <td><%= bug.deadline %></td>
-        <td><%= bug.bug_type %></td>
-        <td><%= bug.status %></td>
+        <td><%= bug.bug_type.capitalize %></td>
+        <td><%= bug.status.capitalize %></td>
         <td><%= bug.screenshot %></td>
         <td><%= link_to 'Show', project_bug_path(@project, bug) %></td>
         <td><%= link_to 'Edit', edit_project_bug_path(@project, bug) %></td>

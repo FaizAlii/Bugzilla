@@ -27,11 +27,11 @@
   </div>
 
   <div class="field">
-    <%= form.select :bug_type, options_for_select(Bug.bug_types.map {|k, v| [k.humanize.capitalize, k]}) %>
+    <%= form.select :bug_type, options_for_select(Bug.bug_types.map {|k, v| [k.humanize.capitalize, k, {:id => k}]}, @bug.bug_type), autocomplete: "bug_type" %>
   </div>
 
   <div class="field">
-    <%= form.select :status, options_for_select(Bug.statuses.map {|k, v| [k.humanize.capitalize, k]}) %>
+    <%= form.select :status, options_for_select(Bug.statuses.map {|k, v| [k.humanize.capitalize, k, {:id => k}]}, @bug.status), autocomplete: "status" %>
   </div>
 
   <div class="field">
