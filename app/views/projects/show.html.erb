@@ -4,7 +4,9 @@
 <h3>Project Name: <%= @project.name %></h3>
 <h3>Project Description: <%= @project.description %></h3>
 
-<%= link_to 'Create a Bug', new_project_bug_path(@project) %> |
+<% if policy(Bug).create? %>
+  <%= link_to 'New Bug', new_project_bug_path(@project) %> |
+<% end %>
 <%= link_to 'View Bugs', project_bugs_path(@project) %> |
 <% if policy(@project).update? %>
   <%= link_to 'Edit', edit_user_project_path(current_user, @project) %> |

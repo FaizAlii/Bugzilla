@@ -2,6 +2,7 @@
 
 class ApplicationController < ActionController::Base
   include Pundit::Authorization
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   before_action :configure_sign_up_params, only: :create, if: :devise_controller?
   after_action :set_role, only: %i[create update], if: :devise_controller?
@@ -24,5 +25,12 @@ class ApplicationController < ActionController::Base
     params[:users_roles][:role_ids].each do |role|
       @user.add_role(Role.find(role).name)
     end
+  end
+
+  private
+
+  def user_not_authorized
+    flash[:alert] = 'You are not authorized to perform this action.'
+    redirect_to(request.referer || root_path)
   end
 end

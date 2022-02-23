@@ -4,6 +4,8 @@ class BugsController < ApplicationController
   before_action :set_bug, only: %i[show edit update destroy]
   before_action :set_project
   before_action :set_new_bug, only: %i[create]
+  before_action :authorize_bug, only: %i[create edit update destroy]
+  # before_action :set_bugs, only: :index
 
   def index
     @bugs = @project.bugs.all
@@ -70,4 +72,16 @@ class BugsController < ApplicationController
   def bug_params
     params.require(:bug).permit(:title, :description, :deadline, :bug_type, :status)
   end
+
+  def authorize_bug
+    authorize @bug
+  end
+
+  # def set_bugs
+  #   @bugs = if current_user.has_any_role? :Manager, :QA
+  #                 @project.bugs.all
+  #               else
+  #                 @project.bugs.where(user: current_user)
+  #               end
+  # end
 end

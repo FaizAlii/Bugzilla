@@ -4,5 +4,7 @@
 
 <%= render 'projects', projects: @projects %>
 
-<%= link_to 'New Project', new_user_project_path(current_user) %>
+<% if policy(Project).create? %>
+  <%= link_to 'New Project', new_user_project_path(current_user) %>
+<% end %>
 <%= link_to 'Dashboard', users_path %>

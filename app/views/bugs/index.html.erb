@@ -32,7 +32,8 @@
 </table>
 
 <br>
-
-<%= link_to 'New Bug', new_project_bug_path(@project) %>
+<% if policy(Bug).create? %>
+  <%= link_to 'New Bug', new_project_bug_path(@project) %>
+<% end %>
 <%= link_to 'Project', user_project_path(current_user, @project) %>
 <%= link_to 'Dashboard', users_path(@project) %>
