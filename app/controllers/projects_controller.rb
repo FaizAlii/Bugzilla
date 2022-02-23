@@ -4,10 +4,9 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: %i[show edit update destroy]
   before_action :set_new_project, only: %i[create]
   before_action :authorize_project, only: %i[create edit update destroy]
+  before_action :set_projects, only: :index
 
-  def index
-    @projects = current_user.projects.all # assign projects on the basis of user roles
-  end
+  def index; end
 
   def show; end
 
@@ -57,6 +56,14 @@ class ProjectsController < ApplicationController
 
   def set_project
     @project = Project.find(params[:id])
+  end
+
+  def set_projects
+    @projects = if current_user.has_any_role? :Manager, :QA
+                  Project.all
+                else
+                  current_user.projects.all
+                end
   end
 
   def set_new_project

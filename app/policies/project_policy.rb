@@ -3,6 +3,10 @@
 class ProjectPolicy < ApplicationPolicy
   attr_reader :user, :project
 
+  # def index?
+  #   true
+  # end
+
   def create?
     @user.has_role? :Manager
   end
@@ -17,10 +21,10 @@ class ProjectPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      if user.has_role? :Manager
+      if user.has_any_role? :Manager, :QA
         scope.all
       else
-        scope.where(user == scope.user)
+        scope.where(user: user)
       end
     end
   end
