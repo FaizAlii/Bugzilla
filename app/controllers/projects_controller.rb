@@ -17,7 +17,6 @@ class ProjectsController < ApplicationController
   def edit; end
 
   def create
-    authorize @project
     respond_to do |format|
       if @project.save
         current_user.projects << @project
@@ -31,7 +30,6 @@ class ProjectsController < ApplicationController
   end
 
   def update
-    authorize @project
     respond_to do |format|
       if @project.update(project_params)
         format.html do
