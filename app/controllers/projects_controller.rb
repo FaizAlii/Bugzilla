@@ -3,6 +3,7 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: %i[show edit update destroy]
   before_action :set_new_project, only: %i[create]
+  before_action :authorize_project, only: %i[create edit update destroy]
 
   def index
     @projects = current_user.projects.all # assign projects on the basis of user roles
@@ -17,7 +18,6 @@ class ProjectsController < ApplicationController
   def edit; end
 
   def create
-    authorize @project
     respond_to do |format|
       if @project.save
         current_user.projects << @project
@@ -31,7 +31,6 @@ class ProjectsController < ApplicationController
   end
 
   def update
-    authorize @project
     respond_to do |format|
       if @project.update(project_params)
         format.html do
@@ -66,5 +65,9 @@ class ProjectsController < ApplicationController
 
   def project_params
     params.require(:project).permit(:name, :description)
+  end
+
+  def authorize_project
+    authorize @project
   end
 end

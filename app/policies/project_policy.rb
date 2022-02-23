@@ -11,6 +11,10 @@ class ProjectPolicy < ApplicationPolicy
     @user.has_role? :Manager
   end
 
+  def destroy?
+    @user.has_role? :Manager
+  end
+
   class Scope < Scope
     def resolve
       if user.has_role? :Manager

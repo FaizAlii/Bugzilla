@@ -8,7 +8,10 @@
     <li><%= link_to 'View Bugs', project_bugs_path(project) %></li>
   <% end %>
 </ul>
-<%= link_to 'Create New Project', new_user_project_path(current_user) %>
+
+<% if policy(Project).update? %>
+  <%= link_to 'Create New Project', new_user_project_path(current_user) %>
+<% end %>
 <%= link_to 'Logout', destroy_user_session_path, :method => :delete %>
 <%= link_to 'Edit', edit_user_registration_path %>
 <%= link_to 'View my Bugs', my_bugs_path(current_user) %>
