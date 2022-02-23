@@ -8,7 +8,6 @@ class UsersController < ApplicationController
 
   def index
     @projects = current_user.projects
-<<<<<<< HEAD
   end
 
   def my_bugs
@@ -69,11 +68,32 @@ class UsersController < ApplicationController
     @project = Project.find(params[:project_id])
     @user = User.find(params[:user_id])
     authorize @user
-=======
->>>>>>> c9a716c (Bugs::Bug and Project Associations)
   end
 
   def my_bugs
     @bugs = current_user.bugs
+  end
+
+  def show; end
+
+  def assign_project
+    @user.projects << @project
+    redirect_to project_path(@project), notice: "#{@user.name} was successfully added to #{@project.name}."
+  rescue StandardError
+    redirect_to project_path(@project), notice: "#{@user.name} has already been added to #{@project.name}."
+  end
+
+  private
+
+  def set_assign_params
+    @user = User.find(params[:user_id])
+    @project = Project.find(params[:project_id])
+    @user_type = params[:user_type]
+  end
+
+  def set_show_params
+    @users = User.with_role params[:user_type]
+    @user_type = params[:user_type]
+    @project_id = params[:project_id]
   end
 end
