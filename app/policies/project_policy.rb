@@ -18,10 +18,10 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def update?
-    @user.has_role? :Manager
+    (@user.has_role? :Manager) && (@record.users.first == user)
   end
 
   def destroy?
-    @user.has_role? :Manager
+    (@user.has_role? :Manager) && (@record.users.first == user)
   end
 end

@@ -6,7 +6,8 @@
 <h3>Assigned to:</h3>
 <ol>
   <% @project.users.drop(1).each do |user| %>
-    <li><%= user.name %></li>
+    <li><%= "#{user.name} (#{roles(user)})" %></li>
+    <li><%= link_to 'Remove User', remove_user_path(project_id: @project.id, user_id: user.id) %></li>
   <% end %>
 </ol>
 
