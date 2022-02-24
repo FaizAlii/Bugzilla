@@ -1,0 +1,14 @@
+<h3>Project Owner: <%= @project.users.first.name %></h3>
+<h3>Project Name: <%= @project.name %></h3>
+<h3>Project Description: <%= @project.description %></h3>
+<h3>Assigned to:</h3>
+<ol>
+  <% @project.users.drop(1).each do |user| %>
+    <li>
+      <%= "#{user.name} (#{roles(user)}) " %>
+      <% if policy(User).remove_user_from_project? %>
+        <%= link_to 'Remove User', remove_user_path(project_id: @project.id, user_id: user.id) %>
+      <% end %>
+    </li>
+  <% end %>
+</ol>

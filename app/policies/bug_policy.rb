@@ -4,10 +4,6 @@ class BugPolicy < ApplicationPolicy
   attr_reader :user, :bug
 
   class Scope < Scope
-    # NOTE: Be explicit about which records you allow access to!
-    # def resolve
-    #   scope.all
-    # end
   end
 
   def create?

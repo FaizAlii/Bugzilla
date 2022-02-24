@@ -1,23 +1,3 @@
-<p id="notice"><%= notice %></p>
+<%= render 'project', project: @project %>
 
-<h3>Project Owner: <%= @project.users.first.name %></h3>
-<h3>Project Name: <%= @project.name %></h3>
-<h3>Project Description: <%= @project.description %></h3>
-<h3>Assigned to:</h3>
-<ol>
-  <% @project.users.drop(1).each do |user| %>
-    <li><%= "#{user.name} (#{roles(user)})" %></li>
-    <li><%= link_to 'Remove User', remove_user_path(project_id: @project.id, user_id: user.id) %></li>
-  <% end %>
-</ol>
-
-<% if policy(Bug).create? %>
-  <%= link_to 'New Bug', new_project_bug_path(@project) %> |
-<% end %>
-<%= link_to 'View Bugs', project_bugs_path(@project) %> |
-<% if policy(@project).update? %>
-  <%= link_to 'Edit', edit_user_project_path(current_user, @project) %> |
-  <%= link_to 'Add Developer', user_path(user_type: 'Developer', project_id: @project.id) %> |
-  <%= link_to 'Add QA', user_path(user_type: 'QA', project_id: @project.id) %>
-<% end %>
-<%= link_to 'Back', users_path %>
+<%= render 'nav_links', project: @project %>
