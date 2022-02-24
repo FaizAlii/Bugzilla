@@ -96,4 +96,9 @@ class UsersController < ApplicationController
     @user_type = params[:user_type]
     @project_id = params[:project_id]
   end
+
+  def set_remove_user_params
+    @project = Project.find(params[:project_id])
+    @user = User.find(params[:user_id])
+  end
 end
