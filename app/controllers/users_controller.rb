@@ -91,6 +91,11 @@ class UsersController < ApplicationController
     @user_type = params[:user_type]
   end
 
+  def set_assign_bug_params
+    @user = User.find(params[:user_id])
+    @bug = Bug.find(params[:bug_id])
+  end
+
   def set_show_params
     @users = User.with_role params[:user_type]
     @user_type = params[:user_type]
@@ -100,5 +105,6 @@ class UsersController < ApplicationController
   def set_remove_user_params
     @project = Project.find(params[:project_id])
     @user = User.find(params[:user_id])
+    authorize @user
   end
 end
