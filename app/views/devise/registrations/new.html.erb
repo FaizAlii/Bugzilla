@@ -16,8 +16,12 @@
   <div class="field">
     <%= f.label :roles %>
     <div class="controls">
-      <% Role.all.each do |role| %>
+      <% Role.all.each_with_index do |role, i| %>
+        <% if i == 0 %>
+          <%= check_box_tag "users_roles[role_ids][]", role.id, @user.role_ids.include?(role.id), checked: true %>
+        <% else %>
           <%= check_box_tag "users_roles[role_ids][]", role.id, @user.role_ids.include?(role.id) %>
+        <% end %>
           <%= role.name %><br />
       <% end %>
     </div>

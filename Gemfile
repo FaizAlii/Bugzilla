@@ -41,6 +41,12 @@ gem 'rolify'
 
 gem 'pundit'
 
+gem 'jquery-rails'
+# jquery UI
+gem 'jquery-ui-rails'
+# bootstrap gem
+gem 'bootstrap', '~> 5.1.3'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 

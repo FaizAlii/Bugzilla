@@ -1,3 +1,9 @@
+<% if @bug.image.attached? %>
+  <p>
+    <%= image_tag @bug.image, id: 'previous-img' %>
+  </p>
+<% end %>
+
 <p>
   <strong>Title:</strong>
   <%= @bug.title %>

@@ -19,5 +19,14 @@ module Users
       # devise_parameter_sanitizer.permit(:name, :email, :password, :password_confirmation)
       devise_parameter_sanitizer.permit(:account_update, keys: [:name])
     end
+
+    def set_role
+      @user.roles = []
+      return unless params.key?(:users_roles)
+
+      params[:users_roles][:role_ids].each do |role|
+        @user.add_role(Role.find(role).name)
+      end
+    end
   end
 end

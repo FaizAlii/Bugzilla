@@ -27,3 +27,21 @@ document.addEventListener('turbolinks:load', () => {
     change_status()
   });
 });
+
+$(function() {
+  $('#bug_image').on('change', function(event) {
+    var files = event.target.files;
+    var image = files[0]
+    var reader = new FileReader();
+    reader.onload = function(file) {
+      var img = new Image();
+      console.log(file);
+      img.src = file.target.result;
+      img.id = 'bug-img';
+      $('#target').html(img);
+      document.getElementById("previous-img").style.display = 'none';
+    }
+    reader.readAsDataURL(image);
+    console.log(files);
+  });
+});

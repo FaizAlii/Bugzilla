@@ -70,18 +70,10 @@ class BugsController < ApplicationController
   end
 
   def bug_params
-    params.require(:bug).permit(:title, :description, :deadline, :bug_type, :status)
+    params.require(:bug).permit(:title, :description, :deadline, :bug_type, :status, :image)
   end
 
   def authorize_bug
     authorize @bug
   end
-
-  # def set_bugs
-  #   @bugs = if current_user.has_any_role? :Manager, :QA
-  #                 @project.bugs.all
-  #               else
-  #                 @project.bugs.where(user: current_user)
-  #               end
-  # end
 end

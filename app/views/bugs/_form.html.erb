@@ -11,26 +11,43 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title, autofocus: true, autocomplete: "title" %>
-  </div>
+  <% if policy(Bug).create? %>
+    <div class="field">
+      <%= form.label :title %>
+      <%= form.text_field :title, autofocus: true, autocomplete: "title" %>
+    </div>
+
+    <div class="field">
+      <%= form.label :description %>
+      <%= form.text_area :description %>
+    </div>
+
+    <div class="field">
+      <%= form.label :deadline %>
+      <%= form.datetime_select :deadline %>
+    </div>
+
+    <% if @bug.image.attached? %>
+      <p>
+        <%= image_tag @bug.image, id: 'previous-img' %>
+      </p>
+    <% end %>
+
+    <div id="target"></div>
+
+    <div class="field">
+      <%= form.label :image %>
+      <%= form.file_field(:image, accept: 'image/png,image/gif') %>
+    </div>
+
+    <div class="field">
+      <%= form.label :bug_type %>
+      <%= form.select :bug_type, options_for_select(Bug.bug_types.map {|k, v| [k.humanize.capitalize, k, {:id => k}]}, @bug.bug_type), autocomplete: "bug_type" %>
+    </div>
+  <% end %>
 
   <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :description %>
-  </div>
-
-  <div class="field">
-    <%= form.label :deadline %>
-    <%= form.datetime_select :deadline %>
-  </div>
-
-  <div class="field">
-    <%= form.select :bug_type, options_for_select(Bug.bug_types.map {|k, v| [k.humanize.capitalize, k, {:id => k}]}, @bug.bug_type), autocomplete: "bug_type" %>
-  </div>
-
-  <div class="field">
+    <%= form.label :status %>
     <%= form.select :status, options_for_select(Bug.statuses.map {|k, v| [k.humanize.capitalize, k, {:id => k}]}, @bug.status), autocomplete: "status" %>
   </div>
 
