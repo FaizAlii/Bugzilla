@@ -32,6 +32,13 @@ class UsersController < ApplicationController
     redirect_to project_bugs_path(@bug.project, @bug), notice: "#{@bug.title} has already been assigned to you."
   end
 
+  def assign_bug
+    @user.bugs << @bug
+    redirect_to project_bugs_path(@bug.project, @bug), notice: "#{@bug.title} has been successfully assigned to you."
+  rescue StandardError
+    redirect_to project_bugs_path(@bug.project, @bug), notice: "#{@bug.title} has already been assigned to you."
+  end
+
   def remove_user_from_project
     @project.users.delete(@user.id)
     redirect_to user_project_path(current_user, @project),
