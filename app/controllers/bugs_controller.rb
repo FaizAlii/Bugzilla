@@ -43,11 +43,13 @@ class BugsController < ApplicationController
   end
 
   def destroy
-    @bug.destroy
-
     respond_to do |format|
-      format.html { redirect_to project_bugs_path(@project), notice: 'Bug was successfully destroyed.' }
-      format.json { head :no_content }
+      if @bug.destroy
+        format.html { redirect_to project_bugs_path(@project), notice: 'Bug was successfully destroyed.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to project_bugs_path(@project), notice: 'Bug could not be destroyed!' }
+      end
     end
   end
 
@@ -66,6 +68,6 @@ class BugsController < ApplicationController
   end
 
   def bug_params
-    params.require(:bug).permit(:title, :description, :deadline, :bug_type, :status, :screenshot)
+    params.require(:bug).permit(:title, :description, :deadline, :bug_type, :status)
   end
 end

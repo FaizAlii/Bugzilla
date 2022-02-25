@@ -4,4 +4,4 @@
 
 <%= render 'nav_links', projects: @projects %>
 
-<%= link_to 'New Project', new_project_path %>
+<%= link_to 'New Project', new_user_project_path(current_user) %>

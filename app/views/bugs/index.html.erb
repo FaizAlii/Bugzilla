@@ -23,7 +23,6 @@
         <td><%= bug.deadline %></td>
         <td><%= bug.bug_type.capitalize %></td>
         <td><%= bug.status.capitalize %></td>
-        <td><%= bug.screenshot %></td>
         <td><%= link_to 'Show', project_bug_path(@project, bug) %></td>
         <td><%= link_to 'Edit', edit_project_bug_path(@project, bug) %></td>
         <td><%= link_to 'Destroy', project_bug_path(@project, bug), method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -35,5 +34,5 @@
 <br>
 
 <%= link_to 'New Bug', new_project_bug_path(@project) %>
-<%= link_to 'Project', project_path(@project) %>
+<%= link_to 'Project', user_project_path(current_user, @project) %>
 <%= link_to 'Dashboard', users_path(@project) %>
