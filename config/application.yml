@@ -1,0 +1,20 @@
+development:
+ cloud_name: "faizali"
+ api_key: "886747693715726"
+ api_secret: "ShTA0XMWnO7JJe63uMVOq5RGuoo"
+ enhance_image_tag: 'true'
+ static_file_support: 'false'
+
+production:
+ cloud_name: "faizali"
+ api_key: "886747693715726"
+ api_secret: "ShTA0XMWnO7JJe63uMVOq5RGuoo"
+ enhance_image_tag: 'true'
+ static_file_support: 'true'
+
+test:
+ cloud_name: "faizali"
+ api_key: "886747693715726"
+ api_secret: "ShTA0XMWnO7JJe63uMVOq5RGuoo"
+ enhance_image_tag: 'true'
+ static_file_support: 'false'
