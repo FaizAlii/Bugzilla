@@ -1,0 +1,40 @@
+<%= form_with(model: [project, bug], local: true) do |form| %>
+  <% if bug.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(bug.errors.count, "error") %> prohibited this bug from being saved:</h2>
+
+      <ul>
+      <% bug.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title, autofocus: true, autocomplete: "title" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :deadline %>
+    <%= form.datetime_select :deadline %>
+  </div>
+
+  <div class="field">
+    <%= form.select :bug_type, options_for_select(Bug.bug_types.map {|k, v| [k.humanize.capitalize, k, {:id => k}]}, @bug.bug_type), autocomplete: "bug_type" %>
+  </div>
+
+  <div class="field">
+    <%= form.select :status, options_for_select(Bug.statuses.map {|k, v| [k.humanize.capitalize, k, {:id => k}]}, @bug.status), autocomplete: "status" %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

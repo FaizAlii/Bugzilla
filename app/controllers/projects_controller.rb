@@ -2,9 +2,10 @@
 
 class ProjectsController < ApplicationController
   before_action :set_project, only: %i[show edit update destroy]
+  before_action :set_new_project, only: %i[create]
 
   def index
-    @projects = Project.all # assign projects on the basis of user roles
+    @projects = current_user.projects.all # assign projects on the basis of user roles
   end
 
   def show; end
@@ -16,12 +17,11 @@ class ProjectsController < ApplicationController
   def edit; end
 
   def create
-    @project = Project.new(project_params)
-
     respond_to do |format|
       if @project.save
-        format.html { redirect_to project_url(@project), notice: 'Project was successfully created.' }
-        format.json { render :show, status: :created, location: @project }
+        current_user.projects << @project
+        format.html { redirect_to users_path, notice: 'Project was successfully created.' }
+        format.json { render 'users/index', status: :created }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @project.errors, status: :unprocessable_entity }
@@ -32,7 +32,9 @@ class ProjectsController < ApplicationController
   def update
     respond_to do |format|
       if @project.update(project_params)
-        format.html { redirect_to project_url(@project), notice: 'Project was successfully updated.' }
+        format.html do
+          redirect_to user_project_url(current_user, @project), notice: 'Project was successfully updated.'
+        end
         format.json { render :show, status: :ok, location: @project }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -45,7 +47,7 @@ class ProjectsController < ApplicationController
     @project.destroy
 
     respond_to do |format|
-      format.html { redirect_to projects_url, notice: 'Project was successfully destroyed.' }
+      format.html { redirect_to user_projects_url(current_user), notice: 'Project was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -53,10 +55,14 @@ class ProjectsController < ApplicationController
   private
 
   def set_project
-    @project = current_user.projects.find(params[:id])
+    @project = Project.find(params[:id])
+  end
+
+  def set_new_project
+    @project = Project.new(project_params)
   end
 
   def project_params
-    params.fetch(:project, {})
+    params.require(:project).permit(:name, :description)
   end
 end
