@@ -20,8 +20,8 @@ class BugsControllerTest < ActionDispatch::IntegrationTest
   test 'should create bug' do
     assert_difference('Bug.count') do
       post bugs_url,
-           params: { bug: { deadline: @bug.deadline, description: @bug.description, screenshot: @bug.screenshot, status: @bug.status, title: @bug.title,
-                            type: @bug.type } }
+           params: { bug: { deadline: @bug.deadline, description: @bug.description, screenshot: @bug.screenshot,
+                            status: @bug.status, title: @bug.title, type: @bug.type } }
     end
 
     assert_redirected_to bug_url(Bug.last)
@@ -39,8 +39,8 @@ class BugsControllerTest < ActionDispatch::IntegrationTest
 
   test 'should update bug' do
     patch bug_url(@bug),
-          params: { bug: { deadline: @bug.deadline, description: @bug.description, screenshot: @bug.screenshot, status: @bug.status, title: @bug.title,
-                           type: @bug.type } }
+          params: { bug: { deadline: @bug.deadline, description: @bug.description, screenshot: @bug.screenshot,
+                           status: @bug.status, title: @bug.title, type: @bug.type } }
     assert_redirected_to bug_url(@bug)
   end
 
