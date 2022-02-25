@@ -28,7 +28,7 @@ document.addEventListener('turbolinks:load', () => {
   });
 });
 
-$(function() {
+document.addEventListener('turbolinks:load', () => {
   $('#bug_image').on('change', function(event) {
     var files = event.target.files;
     var image = files[0]

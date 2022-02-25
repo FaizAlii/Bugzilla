@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_24_140249) do
+ActiveRecord::Schema.define(version: 2022_02_25_102925) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -38,15 +38,15 @@ ActiveRecord::Schema.define(version: 2022_02_24_140249) do
   end
 
   create_table "bug_assignments", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "bug_id"
+    t.bigint "user_id", null: false
+    t.bigint "bug_id", null: false
     t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
   create_table "bugs", force: :cascade do |t|
-    t.string "title", null: false
+    t.string "title", limit: 255, null: false
     t.text "description"
     t.datetime "deadline", null: false
     t.integer "bug_type", null: false
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 2022_02_24_140249) do
     t.datetime "updated_at", null: false
     t.index ["bug_id", "user_id"], name: "by_bug_and_user", unique: true
     t.index ["bug_id"], name: "index_bug_assignments_on_bug_id"
+    t.bigint "project_id", null: false
     t.index ["bug_type"], name: "index_bugs_on_bug_type"
     t.index ["project_id"], name: "index_bugs_on_project_id"
     t.index ["status"], name: "index_bugs_on_status"
