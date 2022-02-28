@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_role
-    return if params[:controller] == 'devise/sessions'
+    return unless params[:controller] == 'devise/registrations'
 
     @user.roles = []
     params[:users_roles][:role_ids].each do |role|
