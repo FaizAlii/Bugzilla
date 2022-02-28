@@ -41,8 +41,10 @@ ActiveRecord::Schema.define(version: 2022_02_25_102925) do
     t.bigint "user_id", null: false
     t.bigint "bug_id", null: false
     t.datetime "created_at", null: false
-    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
-    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+    t.datetime "updated_at", null: false
+    t.index ["bug_id", "user_id"], name: "by_bug_and_user", unique: true
+    t.index ["bug_id"], name: "index_bug_assignments_on_bug_id"
+    t.index ["user_id"], name: "index_bug_assignments_on_user_id"
   end
 
   create_table "bugs", force: :cascade do |t|
@@ -53,8 +55,6 @@ ActiveRecord::Schema.define(version: 2022_02_25_102925) do
     t.integer "status", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["bug_id", "user_id"], name: "by_bug_and_user", unique: true
-    t.index ["bug_id"], name: "index_bug_assignments_on_bug_id"
     t.bigint "project_id", null: false
     t.index ["bug_type"], name: "index_bugs_on_bug_type"
     t.index ["project_id"], name: "index_bugs_on_project_id"
