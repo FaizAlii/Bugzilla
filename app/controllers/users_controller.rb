@@ -18,18 +18,9 @@ class UsersController < ApplicationController
 
   def assign_project
     @user.projects << @project
-    redirect_to user_project_path(current_user, @project),
-                notice: "#{@user.name} was successfully added to #{@project.name}."
+    redirect_to user_project_path(@project), notice: "#{@user.name} was successfully added to #{@project.name}."
   rescue StandardError
-    redirect_to user_project_path(current_user, @project),
-                notice: "#{@user.name} has already been added to #{@project.name}."
-  end
-
-  def assign_bug
-    @user.bugs << @bug
-    redirect_to project_bugs_path(@bug.project, @bug), notice: "#{@bug.title} has been successfully assigned to you."
-  rescue StandardError
-    redirect_to project_bugs_path(@bug.project, @bug), notice: "#{@bug.title} has already been assigned to you."
+    redirect_to user_project_path(@project), notice: "#{@user.name} has already been added to #{@project.name}."
   end
 
   def assign_bug
@@ -48,44 +39,6 @@ class UsersController < ApplicationController
   private
 
   def set_assign_project_params
-    @user = User.find(params[:user_id])
-    @project = Project.find(params[:project_id])
-    @user_type = params[:user_type]
-  end
-
-  def set_assign_bug_params
-    @user = User.find(params[:user_id])
-    @bug = Bug.find(params[:bug_id])
-  end
-
-  def set_show_params
-    @users = User.with_role params[:user_type]
-    @user_type = params[:user_type]
-    @project_id = params[:project_id]
-  end
-
-  def set_remove_user_params
-    @project = Project.find(params[:project_id])
-    @user = User.find(params[:user_id])
-    authorize @user
-  end
-
-  def my_bugs
-    @bugs = current_user.bugs
-  end
-
-  def show; end
-
-  def assign_project
-    @user.projects << @project
-    redirect_to project_path(@project), notice: "#{@user.name} was successfully added to #{@project.name}."
-  rescue StandardError
-    redirect_to project_path(@project), notice: "#{@user.name} has already been added to #{@project.name}."
-  end
-
-  private
-
-  def set_assign_params
     @user = User.find(params[:user_id])
     @project = Project.find(params[:project_id])
     @user_type = params[:user_type]

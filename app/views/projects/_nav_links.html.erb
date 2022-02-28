@@ -3,7 +3,7 @@
 <% end %>
 <%= link_to 'View Bugs', project_bugs_path(project) %> |
 <% if policy(project).update? %>
-  <%= link_to 'Edit', edit_project_path(project) %> |
+  <%= link_to 'Edit', edit_user_project_path(project) %> |
   <%= link_to 'Add Developer', user_path(user_type: 'Developer', project_id: project.id) %> |
   <%= link_to 'Add QA', user_path(user_type: 'QA', project_id: project.id) %>
 <% end %>
