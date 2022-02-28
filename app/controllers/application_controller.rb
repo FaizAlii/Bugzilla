@@ -21,6 +21,8 @@ class ApplicationController < ActionController::Base
   end
 
   def set_role
+    return if params[:controller] == 'devise/sessions'
+
     @user.roles = []
     params[:users_roles][:role_ids].each do |role|
       @user.add_role(Role.find(role).name)
