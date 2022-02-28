@@ -1,4 +1,4 @@
-<h3>Project Owner: <%= @project.users.first.name %></h3>
+<h3>Project Owner: <%= creator(@project).name %></h3>
 <h3>Project Name: <%= @project.name %></h3>
 <h3>Project Description: <%= @project.description %></h3>
 <h3>Assigned to:</h3>
