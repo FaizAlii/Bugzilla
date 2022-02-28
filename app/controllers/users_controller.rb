@@ -18,9 +18,11 @@ class UsersController < ApplicationController
 
   def assign_project
     @user.projects << @project
-    redirect_to user_project_path(current_user, @project), notice: "#{@user.name} was successfully added to #{@project.name}."
+    redirect_to user_project_path(current_user, @project),
+                notice: "#{@user.name} was successfully added to #{@project.name}."
   rescue StandardError
-    redirect_to user_project_path(current_user, @project), notice: "#{@user.name} has already been added to #{@project.name}."
+    redirect_to user_project_path(current_user, @project),
+                notice: "#{@user.name} has already been added to #{@project.name}."
   end
 
   def assign_bug
@@ -32,7 +34,8 @@ class UsersController < ApplicationController
 
   def remove_user_from_project
     @project.users.delete(@user.id)
-    redirect_to user_project_path(current_user, @project), notice: "#{@user.name} was successfully removed from #{@project.name}."
+    redirect_to user_project_path(current_user, @project),
+                notice: "#{@user.name} was successfully removed from #{@project.name}."
   end
 
   private
