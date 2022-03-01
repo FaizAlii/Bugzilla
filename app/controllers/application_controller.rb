@@ -25,6 +25,8 @@ class ApplicationController < ActionController::Base
     return unless params[:controller] == 'devise/registrations'
 
     @user.roles = []
+    return if params[:users_roles].nil?
+
     params[:users_roles][:role_ids].each do |role|
       @user.add_role(Role.find(role).name)
     end

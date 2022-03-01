@@ -1,8 +1,8 @@
-<%= form_with(model: [current_user, project], local: true) do |form| %>
+<%= form_with(model: [current_user, project], local: true, class: "col-12 col-md-6 col-lg-4 border border-radius-5 p-4") do |form| %>
+  <h3 class="form-heading mb-4"><%= form_type %></h3>
+
   <% if project.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(project.errors.count, "error") %> prohibited this project from being saved:</h2>
-
       <ul>
       <% project.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -11,9 +11,15 @@
     </div>
   <% end %>
 
-  <div class="actions">
-    <%= form.text_field :name %>
-    <%= form.text_area :description %>
-    <%= form.submit %>
+  <div class="form-group mb-4 field">
+    <%= form.text_field :name, class: 'form-control', placeholder: "Name" %>
+  </div>
+
+  <div class="form-group mb-4 field">
+    <%= form.text_area :description, class: 'form-control', placeholder: "Description" %>
+  </div>
+
+  <div class="form-group mb-4 actions">
+    <%= form.submit class: 'btn btn-primary btn-submit' %>
   </div>
 <% end %>

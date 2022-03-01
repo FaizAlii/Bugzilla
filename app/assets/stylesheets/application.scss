@@ -10,6 +10,45 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
- *= require_self
+ * require_tree .
  */
+
+ @import "bootstrap";
+ @import "bugs.scss";
+ @import "projects.scss";
+
+ body{
+  font-family: 'Montserrat', sans-serif;
+  padding: 10px;
+  a{
+    text-decoration: none;
+  }
+  .form-heading{
+    text-align: center;
+  }
+  .border-radius-5{
+    border-radius: 10px;
+  }
+  .btn-submit{
+    width: 100%;
+  }
+  .btn-cancel{
+    width: 100%;
+  }
+ }
+ #target{
+  width: auto;
+}
+#bug-img, #previous-img{
+  width: 100%;
+  height: auto;
+}
+#bug_heading{
+  display: none;
+}
+ .datepicker{
+  padding: 5px;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  background-color: white;
+}

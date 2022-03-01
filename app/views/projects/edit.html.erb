@@ -1,6 +1,6 @@
-<h1>Editing Project</h1>
-
-<%= render 'form', project: @project %>
+<div class="row justify-content-center">
+  <%= render 'form', project: @project, form_type: "Edit Project" %>
+</div>
 
 <%= link_to 'Show', user_project_path(current_user, @project) %> |
 <%= link_to 'Back', user_projects_path(current_user) %>
