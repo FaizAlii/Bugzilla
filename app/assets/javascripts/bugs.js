@@ -13,9 +13,10 @@ function change_status() {
 
 document.addEventListener('turbolinks:load', () => {
   const type_dropdown = document.getElementById("bug_bug_type");
+  const bug_heading = document.getElementById("bug_heading");
   const completed_option = document.getElementById("completed");
   const resolved_option = document.getElementById("resolved");
-  if (type_dropdown.value = 'bug'){
+  if (bug_heading.getAttribute('name') == 'Bug'){
     completed_option.style.display = 'none';
     resolved_option.style.display = 'block';
   }

@@ -10,6 +10,10 @@ class BugPolicy < ApplicationPolicy
     @user.has_role? :QA
   end
 
+  def edit?
+    (@user.has_role? :QA) || (@user.bugs.include? @record)
+  end
+
   def update?
     @user.has_any_role? :QA, :Developer
   end

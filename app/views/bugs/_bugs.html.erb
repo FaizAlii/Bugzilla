@@ -19,7 +19,9 @@
         <td><%= bug.bug_type.capitalize %></td>
         <td><%= bug.status.capitalize %></td>
         <td><%= link_to 'Show', project_bug_path(project, bug) %></td>
-        <td><%= link_to 'Edit', edit_project_bug_path(project, bug) %></td>
+        <% if policy(bug).edit? %>
+          <td><%= link_to 'Edit', edit_project_bug_path(project, bug) %></td>
+        <% end %>
         <td><%= link_to 'Destroy', project_bug_path(project, bug), method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <td>
           <% if policy(User).assign_bug? %>
