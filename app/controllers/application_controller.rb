@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   include Pundit::Authorization
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
+  before_action :authenticate_user!
   before_action :configure_sign_up_params, only: :create, if: :devise_controller?
   after_action :set_role, only: %i[create update], if: :devise_controller?
   before_action :configure_account_update_params, only: :update, if: :devise_controller?

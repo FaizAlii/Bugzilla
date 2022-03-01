@@ -19,9 +19,11 @@ class UsersController < ApplicationController
   def assign_project
     @user.projects << @project
     AssignmentMailer.with(project: @project, user: @user).project_assignment_email.deliver_later
-    redirect_to user_project_path(current_user, @project), notice: "#{@user.name} was successfully added to #{@project.name}."
+    redirect_to user_project_path(current_user, @project),
+                notice: "#{@user.name} was successfully added to #{@project.name}."
   rescue StandardError
-    redirect_to user_project_path(current_user, @project), notice: "#{@user.name} has already been added to #{@project.name}."
+    redirect_to user_project_path(current_user, @project),
+                notice: "#{@user.name} has already been added to #{@project.name}."
   end
 
   def assign_bug
