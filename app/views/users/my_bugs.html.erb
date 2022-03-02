@@ -1,3 +1,5 @@
+<%= render 'layouts/navbar' %>
+
 <h2>Your Bugs: </h2>
 <table>
   <thead>
@@ -28,6 +30,3 @@
     <% end %>
   </tbody>
 </table>
-
-<%= link_to 'Logout', destroy_user_session_path, :method => :delete %>
-<%= link_to 'Dashboard', users_path %>

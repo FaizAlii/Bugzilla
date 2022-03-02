@@ -1,3 +1,5 @@
+<%= render 'layouts/navbar' %>
+
 <% if @bug.image.attached? %>
   <p>
     <%= cl_image_tag(@bug.image.key, width: 500, id: 'previous-img') %>
@@ -32,5 +34,3 @@
 <% if policy(@bug).edit? %>
   <%= link_to 'Edit', edit_project_bug_path(@project, @bug) %> |
 <% end %>
-<%= link_to 'Project', user_project_path(current_user, @project) %> |
-<%= link_to 'Dashboard', users_path(@project) %>

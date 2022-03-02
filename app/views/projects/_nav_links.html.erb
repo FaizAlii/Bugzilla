@@ -7,4 +7,4 @@
   <%= link_to 'Add Developer', user_path(user_type: 'Developer', project_id: project.id) %> |
   <%= link_to 'Add QA', user_path(user_type: 'QA', project_id: project.id) %>
 <% end %>
-<%= link_to 'Back', users_path %>
+<%= link_to '< Back', users_path, class: "nav-btn btn btn-primary col-3 col-md-2 col-lg-1 offset-md-3 offset-lg-4" %>

@@ -1,5 +1,5 @@
 <div class="row justify-content-center">
-  <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "col-12 col-md-6 col-lg-4 border border-radius-5 p-4"}) do |f| %>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "col-12 col-md-6 col-lg-4 border border-radius-5 mt-5 p-4"}) do |f| %>
     <h3 class="form-heading">Log in</h3>
     <div class="form-group mb-4 field">
       <%= f.email_field :email, class: 'form-control', autofocus: true, autocomplete: "email", placeholder: "Email" %>

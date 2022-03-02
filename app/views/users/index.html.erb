@@ -1,3 +1,5 @@
+<%= render 'layouts/navbar' %>
+
 <h1>Welcome: <%= current_user.name %></h1>
 <h2>Your Projects: </h2>
 <ul>
@@ -12,7 +14,3 @@
 <% if policy(Project).create? %>
   <%= link_to 'Create New Project', new_user_project_path(current_user) %>
 <% end %>
-<%= link_to 'Logout', destroy_user_session_path, :method => :delete %>
-<%= link_to 'Edit', edit_user_registration_path %>
-<%= link_to 'View my Bugs', my_bugs_path(current_user) %>
-<%= link_to 'View Projects', user_projects_path(current_user) %>

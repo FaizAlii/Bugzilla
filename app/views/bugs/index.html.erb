@@ -1,9 +1,5 @@
+<%= render 'layouts/navbar' %>
+
 <h1>Bugs</h1>
 
 <%= render 'bugs', project: @project, bugs: @bugs %>
-
-<% if policy(Bug).create? %>
-  <%= link_to 'Report Bug', new_project_bug_path(@project) %>
-<% end %>
-<%= link_to 'Project', user_project_path(current_user, @project) %>
-<%= link_to 'Dashboard', users_path(@project) %>
