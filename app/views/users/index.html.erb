@@ -1,16 +1,40 @@
-<%= render 'layouts/navbar' %>
-
-<h1>Welcome: <%= current_user.name %></h1>
-<h2>Your Projects: </h2>
-<ul>
-  <% current_user.projects.each do |project| %>
-    <li>Name: <%= project.name %></li>
-    <li>Description: <%= project.description %></li>
-    <li><%= link_to 'Show', user_project_path(current_user, project) %></li>
-    <li><%= link_to 'View Bugs', project_bugs_path(project) %></li>
+<div class=" counter col-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3 border border-radius-5 p-3 mt-3">
+  <h3 class="count-heading mt-3 mx-4">My Projects: <%= current_user.projects.count %></h3>
+  <% if current_user.has_any_role? :QA, :Developer %>
+    <h3 class="count-heading mt-3 mx-4">My Bugs: <%= current_user.bugs.count %></h3>
   <% end %>
-</ul>
+</div>
+
+<% if current_user.projects.count.positive? %>
+  <div class="col-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3 border border-radius-5 p-3 mt-5">
+    <h3 class="table-heading">My Projects</h3>
+
+    <table class="table table-hover table-responsive">
+      <thead class="thead-light">
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>View Bugs</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% current_user.projects.each do |project| %>
+          <tr>
+            <td><%= link_to project.name, user_project_path(current_user, project) %></td>
+            <td><%= project.description %></td>
+            <td><%= link_to 'View Bugs', project_bugs_path(project) %></td>
+            <td><%= link_to 'Edit', edit_user_project_path(current_user, project) %></td>
+            <td><%= link_to 'Destroy', user_project_path(current_user, project), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
 
 <% if policy(Project).create? %>
-  <%= link_to 'Create New Project', new_user_project_path(current_user) %>
+  <%= link_to 'New Project >', new_user_project_path(current_user), class: "nav-btn btn btn-primary col-3 col-md-3 col-lg-2 offset-8 offset-md-7 offset-lg-7" %>
 <% end %>

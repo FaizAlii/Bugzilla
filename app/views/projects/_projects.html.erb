@@ -1,19 +1,25 @@
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<div class="col-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3 border border-radius-5 p-3 mt-5">
+  <h3 class="table-heading">Projects</h3>
 
-  <tbody>
-    <% projects.each do |project| %>
+  <table class="table table-hover table-responsive">
+    <thead class="thead-light">
       <tr>
-        <td><%= project.name %></td>
-        <td><%= project.description %></td>
-        <td><%= link_to 'Show', user_project_path(current_user, project) %></td>
-        <td><%= link_to 'Edit', edit_user_project_path(current_user, project) %></td>
-        <td><%= link_to 'Destroy', user_project_path(current_user, project), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Edit</th>
+        <th>Delete</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      <% projects.each do |project| %>
+        <tr>
+          <td><%= link_to project.name, user_project_path(current_user, project) %></td>
+          <td><%= project.description %></td>
+          <td><%= link_to 'Edit', edit_user_project_path(current_user, project) %></td>
+          <td><%= link_to 'Destroy', user_project_path(current_user, project), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

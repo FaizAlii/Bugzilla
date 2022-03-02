@@ -1,9 +1,13 @@
-<%= render 'layouts/navbar' %>
+<% if @projects.count.positive? %>
+  <%= render 'projects', projects: @projects %>
+<% else %>
+  <div class=" counter col-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3 border border-radius-5 p-3 mt-3">
+    <h3 class="count-heading mt-3 mx-4">You don't have any projects yet!</h3>
+  </div>
+<% end %>
 
-<h1>Projects</h1>
-
-<%= render 'projects', projects: @projects %>
+<%= link_to '< Back', users_path, class: "nav-btn btn btn-primary col-3 col-md-3 offset-1 col-lg-2 offset-md-2 offset-lg-3" %>
 
 <% if policy(Project).create? %>
-  <%= link_to 'New Project', new_user_project_path(current_user) %>
+  <%= link_to 'New Project >', new_user_project_path(current_user), class: "nav-btn btn btn-primary col-3 col-md-3 col-lg-2 offset-4 offset-md-2 offset-lg-2" %>
 <% end %>

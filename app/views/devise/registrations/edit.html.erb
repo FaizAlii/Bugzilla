@@ -1,7 +1,5 @@
-<div class="row justify-content-center">
+<div class="row gx-0 justify-content-center">
   <%= render "devise/registrations/form", resource: resource, request_type: 'put', form_type: 'Update' %>
-
-  <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: 'btn btn-danger col-12 col-md-6 col-lg-4 offset-md-3 offset-lg-4 mt-4' %>
-
-  <%= link_to "Back", :back %>
 </div>
+<%= link_to '< Back', users_path, class: "nav-btn btn btn-primary col-3 col-lg-2 offset-1 offset-md-3 offset-lg-4" %>
+<%= link_to "Delete Account >", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: 'nav-btn btn btn-danger col-3 col-lg-2 offset-4 offset-md-0' %>

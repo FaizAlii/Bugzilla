@@ -1,5 +1,3 @@
-<%= render 'layouts/navbar' %>
-
 <% if @bug.image.attached? %>
   <p>
     <%= cl_image_tag(@bug.image.key, width: 500, id: 'previous-img') %>
@@ -29,6 +27,12 @@
 <p>
   <strong>Status:</strong>
   <%= @bug.status.capitalize %>
+</p>
+
+<p>
+  <% if policy(User).assign_bug? %>
+    <%= link_to 'Assign to Myself', assign_bug_path(user_id: current_user.id, bug_id: @bug.id) %>
+  <% end %>
 </p>
 
 <% if policy(@bug).edit? %>
