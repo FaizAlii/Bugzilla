@@ -1,40 +1,35 @@
-<% if @bug.image.attached? %>
-  <p>
-    <%= cl_image_tag(@bug.image.key, width: 500, id: 'previous-img') %>
-  </p>
-<% end %>
+<div class="col-12 col-md-10 col-lg-8 offset-md-1 offset-lg-2 border border-radius-5 p-3 mt-5">
+  <h3 class="table-heading mb-2"><%= @bug.title %></h3>
+  <h6 class="table-heading text-muted mb-4"><%= @bug.description %></h6>
 
-<p>
-  <strong>Title:</strong>
-  <%= @bug.title %>
-</p>
+  <div class="row justify-content-around">
+    <p class="col-12 col-md-9 col-lg-3 text-center">
+      <strong>Deadline:</strong>
+      <%= @bug.deadline %>
+    </p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @bug.description %>
-</p>
+    <p class="col-12 col-md-4 col-lg-3 text-center">
+      <strong>Type:</strong>
+      <%= @bug.bug_type.capitalize %>
+    </p>
 
-<p>
-  <strong>Deadline:</strong>
-  <%= @bug.deadline %>
-</p>
+    <p class="col-12 col-md-4 col-lg-3 text-center">
+      <strong>Status:</strong>
+      <%= @bug.status.capitalize %>
+    </p>
 
-<p>
-  <strong>Type:</strong>
-  <%= @bug.bug_type.capitalize %>
-</p>
-
-<p>
-  <strong>Status:</strong>
-  <%= @bug.status.capitalize %>
-</p>
-
-<p>
-  <% if policy(User).assign_bug? %>
-    <%= link_to 'Assign to Myself', assign_bug_path(user_id: current_user.id, bug_id: @bug.id) %>
-  <% end %>
-</p>
+    <% if @bug.image.attached? %>
+      <p class="col-12 col-md-8 col-lg-6 text-center mt-5">
+        <%= cl_image_tag(@bug.image.key, width: 500, id: 'img-bug') %>
+      </p>
+    <% end %>
+  </div>
+</div>
 
 <% if policy(@bug).edit? %>
-  <%= link_to 'Edit', edit_project_bug_path(@project, @bug) %> |
+  <%= link_to '< Edit', edit_project_bug_path(@project, @bug), class: "nav-btn btn btn-primary col-3 col-md-3 col-lg-2 offset-1 offset-lg-2" %>
+<% end %>
+
+<% if policy(User).assign_bug? %>
+  <%= link_to 'Assign Myself >', assign_bug_path(user_id: current_user.id, bug_id: @bug.id), class: "nav-btn btn btn-primary col-3 col-md-3 col-lg-2 offset-4 offset-md-4 offset-lg-4" %>
 <% end %>
