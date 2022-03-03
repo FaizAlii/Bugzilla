@@ -1,4 +1,4 @@
-<%= form_with(model: [current_user, project], local: true, class: "col-12 col-md-6 col-lg-4 border border-radius-5 mt-5 p-4") do |form| %>
+<%= form_with(model: project, local: true, class: "col-12 col-md-6 col-lg-4 border border-radius-5 mt-5 p-4") do |form| %>
   <h3 class="form-heading mb-4"><%= form_type %></h3>
 
   <% if project.errors.any? %>

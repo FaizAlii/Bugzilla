@@ -6,10 +6,6 @@ class UsersController < ApplicationController
   before_action :set_assign_bug_params, only: :assign_bug
   before_action :set_remove_user_params, only: :remove_user_from_project
 
-  def index
-    @projects = current_user.projects
-  end
-
   def my_bugs
     @bugs = current_user.bugs
   end
@@ -19,10 +15,10 @@ class UsersController < ApplicationController
   def assign_project
     @user.projects << @project
     AssignmentMailer.with(project: @project, user: @user).project_assignment_email.deliver_later
-    redirect_to user_project_path(current_user, @project),
+    redirect_to project_path(@project),
                 notice: "#{@user.name} was successfully added to #{@project.name}."
   rescue StandardError
-    redirect_to user_project_path(current_user, @project),
+    redirect_to project_path(@project),
                 notice: "#{@user.name} has already been added to #{@project.name}."
   end
 
@@ -36,7 +32,7 @@ class UsersController < ApplicationController
   def remove_user_from_project
     @project.users.delete(@user.id)
     AssignmentMailer.with(project: @project, user: @user).project_unassignment_email.deliver_later
-    redirect_to user_project_path(current_user, @project),
+    redirect_to project_path(@project),
                 notice: "#{@user.name} was successfully removed from #{@project.name}."
   end
 

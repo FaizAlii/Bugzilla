@@ -22,7 +22,7 @@
             <td><%= bug.deadline %></td>
             <td><%= bug.bug_type.capitalize %></td>
             <td><%= bug.status.capitalize %></td>
-            <td><%= link_to bug.project.name, user_project_path(current_user, bug.project) %></td>
+            <td><%= link_to bug.project.name, project_path(bug.project) %></td>
             <td><%= link_to 'Edit', edit_project_bug_path(bug.project, bug) %></td>
             <td><%= link_to 'Destroy', project_bug_path(bug.project, bug), method: :delete, data: { confirm: 'Are you sure?' } %></td>
           </tr>

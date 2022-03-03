@@ -4,4 +4,4 @@
   <%= render 'form', bug: @bug, project: @project, form_type: "New Bug" %>
 </div>
 
-<%= link_to '< Back', user_project_path(current_user, @project), class: "nav-btn btn btn-primary col-3 col-md-2 col-lg-1 offset-md-3 offset-lg-4" %>
+<%= link_to '< Back', project_path(@project), class: "nav-btn btn btn-primary col-3 col-md-2 col-lg-1 offset-md-3 offset-lg-4" %>

@@ -3,11 +3,9 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  resources :users, only: %i[index show] do
-    resources :projects
-  end
+  resources :users, only: %i[show]
 
-  resources :projects, only: [] do
+  resources :projects do
     resources :bugs
   end
 

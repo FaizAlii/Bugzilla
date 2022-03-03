@@ -4,9 +4,10 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: %i[show edit update destroy]
   before_action :set_new_project, only: %i[create]
   before_action :authorize_project, only: %i[create edit update destroy]
-  before_action :set_projects, only: :index
 
-  def index; end
+  def index
+    @projects = policy_scope(Project)
+  end
 
   def show; end
 
@@ -20,7 +21,7 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       if @project.save
         current_user.projects << @project
-        format.html { redirect_to users_path, notice: 'Project was successfully created.' }
+        format.html { redirect_to project_path(@project), notice: 'Project was successfully created.' }
         format.json { render 'users/index', status: :created }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -33,7 +34,7 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       if @project.update(project_params)
         format.html do
-          redirect_to user_project_url(current_user, @project), notice: 'Project was successfully updated.'
+          redirect_to project_path(@project), notice: 'Project was successfully updated.'
         end
         format.json { render :show, status: :ok, location: @project }
       else
@@ -44,11 +45,13 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
-    @project.destroy
-
     respond_to do |format|
-      format.html { redirect_to user_projects_url(current_user), notice: 'Project was successfully destroyed.' }
-      format.json { head :no_content }
+      if @project.destroy
+        format.html { redirect_to projects_path, notice: 'Project was successfully destroyed.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to projects_path, notice: 'Project could not be destroyed.' }
+      end
     end
   end
 
@@ -56,14 +59,6 @@ class ProjectsController < ApplicationController
 
   def set_project
     @project = Project.find(params[:id])
-  end
-
-  def set_projects
-    @projects = if current_user.has_any_role? :Manager, :QA
-                  Project.all
-                else
-                  current_user.projects.all
-                end
   end
 
   def set_new_project

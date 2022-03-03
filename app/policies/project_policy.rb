@@ -8,7 +8,7 @@ class ProjectPolicy < ApplicationPolicy
       if user.has_any_role? :Manager, :QA
         scope.all
       else
-        scope.where(user: user)
+        user.projects
       end
     end
   end
@@ -22,6 +22,6 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def destroy?
-    (@user.has_role? :Manager) && (@record.users.first == user)
+    (@user.has_role? :Manager) # && (@record.users.first == user)
   end
 end

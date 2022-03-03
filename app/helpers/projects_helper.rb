@@ -6,6 +6,6 @@ module ProjectsHelper
   end
 
   def creator(project)
-    project.project_assignments.first.user
+    project.project_assignments.first&.user
   end
 end

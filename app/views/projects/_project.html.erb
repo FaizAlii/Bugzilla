@@ -1,11 +1,11 @@
-<%= link_to '< Back', users_path, class: "nav-btn btn btn-primary col-3 col-md-2 col-xxl-1 offset-1 offset-lg-2" %>
+<%= link_to '< Back', projects_path, class: "nav-btn btn btn-primary col-3 col-md-2 col-xxl-1 offset-1 offset-lg-2" %>
 <%= link_to 'View Bugs >', project_bugs_path(project), class: "nav-btn btn btn-primary col-3 col-md-2 col-xxl-1 offset-4 offset-md-6 offset-lg-4 offset-xxl-6" %>
 <div class="col-12 col-md-10 col-lg-8 offset-md-1 offset-lg-2 border border-radius-5 p-3">
   <h3 class="table-heading mb-2"><%= @project.name %></h3>
   <h6 class="table-heading text-muted mb-4"><%= @project.description %></h6>
   <p class="table-heading mb-4">
     <strong>Project Owner: </strong>
-    <%= creator(@project).name %>
+    <%= creator(@project)&.name %>
   </p>
 
   <% if @project.users.drop(1).count.positive? %>
