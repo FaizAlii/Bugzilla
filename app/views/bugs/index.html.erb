@@ -1,9 +1,13 @@
-<h1>Bugs</h1>
+<% if @bugs.count.positive? %>
+  <%= render 'bugs', project: @project, bugs: @bugs %>
+<% else %>
+  <div class=" counter col-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3 border border-radius-5 p-3 mt-3">
+    <h3 class="count-heading mt-3 mx-4">You don't have any bugs yet!</h3>
+  </div>
+<% end %>
 
-<%= render 'bugs', project: @project, bugs: @bugs %>
+<%= link_to '< Back', user_project_path(current_user, @project), class: "nav-btn btn btn-primary col-3 col-md-3 offset-1 col-lg-2 offset-md-1 offset-lg-2" %>
 
 <% if policy(Bug).create? %>
-  <%= link_to 'Report Bug', new_project_bug_path(@project) %>
+  <%= link_to 'New Bug >', new_project_bug_path(@project), class: "nav-btn btn btn-primary col-3 col-md-3 col-lg-2 offset-4 offset-md-4 offset-lg-4" %>
 <% end %>
-<%= link_to 'Project', user_project_path(current_user, @project) %>
-<%= link_to 'Dashboard', users_path(@project) %>

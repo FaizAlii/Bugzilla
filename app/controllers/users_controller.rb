@@ -54,7 +54,7 @@ class UsersController < ApplicationController
   end
 
   def set_show_params
-    @users = User.with_role params[:user_type]
+    @users = User.where.not(id: current_user.id).with_role params[:user_type]
     @user_type = params[:user_type]
     @project_id = params[:project_id]
   end

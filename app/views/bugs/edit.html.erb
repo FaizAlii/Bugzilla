@@ -1,7 +1,5 @@
 <h1 id="bug_heading", name="<%= @bug_type %>">Editing <%= @bug_type %></h1>
 
-<%= render 'form', bug: @bug, project: @project %>
-
-<%= link_to 'Show', project_bug_path(@project, @bug) %> |
-<%= link_to 'Project', user_project_path(current_user, @project) %>
-<%= link_to 'Dashboard', users_path(@project) %>
+<div class="row justify-content-center">
+  <%= render 'form', bug: @bug, project: @project, form_type: "Edit #{@bug_type}" %>
+</div>

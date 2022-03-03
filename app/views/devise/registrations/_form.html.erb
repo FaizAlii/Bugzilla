@@ -1,0 +1,57 @@
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: request_type, class: "col-12 col-md-6 col-lg-4 border border-radius-5 mt-5 p-4"}) do |f| %>
+    <h3 class="form-heading"><%= form_type %></h3>
+    <%= render "devise/shared/error_messages", resource: resource %>
+
+    <div class="form-group mb-4 field">
+      <%= f.text_field :name, class: 'form-control', autofocus: true, autocomplete: "name", placeholder: "Name" %>
+    </div>
+
+    <div class="form-group mb-4 field">
+      <%= f.email_field :email, class: 'form-control text-decoration-none', autocomplete: "email", placeholder: "Email" %>
+    </div>
+
+    <div class="form-group mb-4 field">
+      <div class="controls align-items-center">
+        <% Role.all.each do |role| %>
+          <div class="form-check form-check-inline">
+            <%= check_box_tag "users_roles[role_ids][]", role.id, @user.role_ids.include?(role.id), class: 'form-check-input' %>
+            <%= role.name %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+    <% end %>
+
+    <div class="form-group mb-4 field">
+      <%= f.password_field :password, autocomplete: "new-password", class: 'form-control', placeholder: "New Password" %>
+      <small class="form-text text-muted">
+        <% if @minimum_password_length %>
+          (<%= @minimum_password_length %> characters minimum)
+        <% end %>
+      </small>
+    </div>
+
+    <div class="form-group mb-4 field">
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control', placeholder: "Confirm Password" %>
+    </div>
+
+    <% if request_type == 'put' %>
+      <div class="form-group mb-4 field">
+        <%= f.password_field :current_password, autocomplete: "current-password", class: 'form-control', placeholder: "Current Password" %>
+        <small class="form-text text-muted">
+          (We need your password to confirm your changes)
+        </small>
+      </div>
+    <% end %>
+
+    <div class="form-group mb-4 actions">
+      <%= f.submit form_type, class: 'btn btn-primary btn-submit' %>
+    </div>
+
+    <% if request_type == 'post' %>
+      <%= render "devise/shared/links" %>
+    <% end %>
+  <% end %>

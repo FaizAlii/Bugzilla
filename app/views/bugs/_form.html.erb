@@ -1,8 +1,8 @@
-<%= form_with(model: [project, bug], local: true) do |form| %>
+<%= form_with(model: [project, bug], local: true, class: "col-12 col-md-6 col-lg-4 border border-radius-5 mt-5 p-4") do |form| %>
+  <h3 class="form-heading mb-4"><%= form_type %></h3>
+
   <% if bug.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(bug.errors.count, "error") %> prohibited this bug from being saved:</h2>
-
       <ul>
       <% bug.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -12,19 +12,19 @@
   <% end %>
 
   <% if policy(Bug).create? %>
-    <div class="field">
-      <%= form.label :title %>
-      <%= form.text_field :title, autofocus: true, autocomplete: "title" %>
+    <div class="form-group mb-4 field">
+      <%= form.label :title, class: 'mb-2' %>
+      <%= form.text_field :title, class: 'form-control', autofocus: true, autocomplete: "title" %>
     </div>
 
-    <div class="field">
-      <%= form.label :description %>
-      <%= form.text_area :description %>
+    <div class="form-group mb-4 field">
+      <%= form.label :description, class: 'mb-2' %>
+      <%= form.text_area :description, class: 'form-control' %>
     </div>
 
-    <div class="field">
-      <%= form.label :deadline %>
-      <%= form.datetime_select :deadline %>
+    <div class="form-group mb-4 field">
+      <%= form.label :deadline, class: 'mb-2' %><br>
+      <%= form.datetime_select :deadline, {}, { class: 'datepicker text-muted' } %>
     </div>
 
     <% if @bug.image.attached? %>
@@ -35,23 +35,23 @@
 
     <div id="target"></div>
 
-    <div class="field">
-      <%= form.label :image %>
-      <%= form.file_field(:image, accept: 'image/png,image/gif', direct_upload: true) %>
+    <div class="form-group mb-4 field">
+      <%= form.label :image, class: 'mb-2' %>
+      <%= form.file_field(:image, accept: 'image/png,image/gif', direct_upload: true, class: 'form-control') %>
     </div>
 
-    <div class="field">
-      <%= form.label :bug_type %>
-      <%= form.select :bug_type, options_for_select(Bug.bug_types.map {|k, v| [k.humanize.capitalize, k, {:id => k}]}, @bug.bug_type), autocomplete: "bug_type" %>
+    <div class="form-group mb-4 field">
+      <%= form.label :bug_type, class: 'mb-2' %>
+      <%= form.select :bug_type, options_for_select(Bug.bug_types.map {|k, v| [k.humanize.capitalize, k, {:id => k}]}, @bug.bug_type), {}, { autocomplete: "bug_type", class: 'form-select' } %>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :status %>
-    <%= form.select :status, options_for_select(Bug.statuses.map {|k, v| [k.humanize.capitalize, k, {:id => k}]}, @bug.status), autocomplete: "status" %>
+  <div class="form-group mb-4 field">
+    <%= form.label :status, class: 'mb-2' %>
+    <%= form.select :status, options_for_select(Bug.statuses.map {|k, v| [k.humanize.capitalize, k, {:id => k}]}, @bug.status), {}, { autocomplete: "status", class: 'form-select' } %>
   </div>
 
-  <div class="actions">
-    <%= form.submit 'Update' %>
+  <div class="form-group mb-4 actions">
+    <%= form.submit class: 'btn btn-primary btn-submit' %>
   </div>
 <% end %>

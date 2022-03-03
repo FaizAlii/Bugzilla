@@ -50,6 +50,8 @@ gem 'bootstrap', '~> 5.1.3'
 gem 'cloudinary'
 # figaro for EVN variable
 gem 'figaro'
+# font awesome icons
+gem 'font-awesome-rails'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false

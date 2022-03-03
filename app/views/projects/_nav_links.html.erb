@@ -1,10 +1,8 @@
 <% if policy(Bug).create? %>
-  <%= link_to 'Report Bug', new_project_bug_path(project) %> |
+  <%= link_to 'Report Bug', new_project_bug_path(project), class: "nav-btn btn btn-primary col-4 col-md-2 offset-4 offset-md-5" %>
 <% end %>
-<%= link_to 'View Bugs', project_bugs_path(project) %> |
 <% if policy(project).update? %>
-  <%= link_to 'Edit', edit_user_project_path(project) %> |
-  <%= link_to 'Add Developer', user_path(user_type: 'Developer', project_id: project.id) %> |
-  <%= link_to 'Add QA', user_path(user_type: 'QA', project_id: project.id) %>
+  <%= link_to 'Edit', edit_user_project_path(project), class: "nav-btn btn btn-primary col-3 col-md-2 offset-1 offset-md-2" %>
+  <%= link_to 'Add Developer', user_path(user_type: 'Developer', project_id: project.id), class: "nav-btn btn btn-primary col-4 col-md-2 offset-md-1" %>
+  <%= link_to 'Add QA', user_path(user_type: 'QA', project_id: project.id), class: "nav-btn btn btn-primary col-3 col-md-2 offset offset-md-1" %>
 <% end %>
-<%= link_to 'Back', users_path %>
