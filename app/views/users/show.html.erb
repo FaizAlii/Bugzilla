@@ -1,0 +1,10 @@
+<h2><%= @user_type + 's:' %> </h2>
+<ul>
+  <% @users.each do |user| %>
+    <% if user != current_user %>
+      <li>Name: <%= user.name %></li>
+      <li>Email: <%= user.email %></li>
+      <li><%= link_to 'Add User', assign_project_path(project_id: @project_id, user_id: user.id, user_type: @user_type) %></li>
+    <% end %>
+  <% end %>
+</ul>

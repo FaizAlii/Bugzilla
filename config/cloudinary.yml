@@ -1,0 +1,17 @@
+development:
+  cloud_name: EVN['cloud_name']
+  api_key: ENV['api_key']
+  api_secret: ENV['api_secret']
+  secure: true
+
+production:
+  cloud_name: EVN['cloud_name']
+  api_key: ENV['api_key']
+  api_secret: ENV['api_secret']
+  secure: true
+
+test:
+  cloud_name: EVN['cloud_name']
+  api_key: ENV['api_key']
+  api_secret: ENV['api_secret']
+  secure: true

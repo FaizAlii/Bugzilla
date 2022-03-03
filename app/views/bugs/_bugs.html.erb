@@ -1,0 +1,34 @@
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Deadline</th>
+      <th>Type</th>
+      <th>Status</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% bugs.each do |bug| %>
+      <tr>
+        <td><%= bug.title %></td>
+        <td><%= bug.description %></td>
+        <td><%= bug.deadline %></td>
+        <td><%= bug.bug_type.capitalize %></td>
+        <td><%= bug.status.capitalize %></td>
+        <td><%= link_to 'Show', project_bug_path(project, bug) %></td>
+        <% if policy(bug).edit? %>
+          <td><%= link_to 'Edit', edit_project_bug_path(project, bug) %></td>
+        <% end %>
+        <td><%= link_to 'Destroy', project_bug_path(project, bug), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <% if policy(User).assign_bug? %>
+            <%= link_to 'Assign to Myself', assign_bug_path(user_id: current_user.id, bug_id: bug.id) %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
