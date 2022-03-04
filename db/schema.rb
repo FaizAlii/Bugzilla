@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_25_102925) do
+ActiveRecord::Schema.define(version: 2022_03_04_100806) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(version: 2022_02_25_102925) do
     t.index ["bug_type"], name: "index_bugs_on_bug_type"
     t.index ["project_id"], name: "index_bugs_on_project_id"
     t.index ["status"], name: "index_bugs_on_status"
-    t.index ["title"], name: "index_bugs_on_title", unique: true
+    t.index ["title", "project_id"], name: "index_bugs_on_title_and_project_id", unique: true
   end
 
   create_table "project_assignments", force: :cascade do |t|
@@ -87,6 +87,7 @@ ActiveRecord::Schema.define(version: 2022_02_25_102925) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
+    t.index ["name"], name: "index_roles_on_name", unique: true
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource_type_and_resource_id"
   end
 

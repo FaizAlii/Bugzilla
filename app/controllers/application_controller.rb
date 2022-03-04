@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   end
 
   def configure_account_update_params
-    devise_parameter_sanitizer.permit(:account_update, keys: [:name, { role_ids: [] }])
+    devise_parameter_sanitizer.permit(:account_update, keys: %i[name role_ids[]])
   end
 
   private
