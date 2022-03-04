@@ -63,10 +63,14 @@ class BugsController < ApplicationController
 
   def set_bug
     @bug = Bug.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to projects_path, alert: 'Bug not found!'
   end
 
   def set_project
     @project = Project.find(params[:project_id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to projects_path, alert: 'Project not found!'
   end
 
   def set_new_bug

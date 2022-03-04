@@ -2,8 +2,7 @@
 
 class ProjectsController < ApplicationController
   before_action :set_project, only: %i[show edit update destroy]
-  before_action :set_new_project, only: %i[create]
-  before_action :authorize_project, only: %i[create edit update destroy]
+  before_action :authorize_project, only: %i[edit update destroy]
 
   def index
     @projects = policy_scope(Project)
@@ -12,17 +11,19 @@ class ProjectsController < ApplicationController
   def show; end
 
   def new
-    @project = Project.new
+    @project = current_user.projects.new
   end
 
   def edit; end
 
   def create
+    @project = current_user.projects.create(project_params)
+    authorize @project
+
     respond_to do |format|
       if @project.save
-        current_user.projects << @project
         format.html { redirect_to project_path(@project), notice: 'Project was successfully created.' }
-        format.json { render 'users/index', status: :created }
+        format.json { render :show, status: :created }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @project.errors, status: :unprocessable_entity }
@@ -33,9 +34,7 @@ class ProjectsController < ApplicationController
   def update
     respond_to do |format|
       if @project.update(project_params)
-        format.html do
-          redirect_to project_path(@project), notice: 'Project was successfully updated.'
-        end
+        format.html { redirect_to project_path(@project), notice: 'Project was successfully updated.' }
         format.json { render :show, status: :ok, location: @project }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -59,10 +58,8 @@ class ProjectsController < ApplicationController
 
   def set_project
     @project = Project.find(params[:id])
-  end
-
-  def set_new_project
-    @project = Project.new(project_params)
+  rescue ActiveRecord::RecordNotFound
+    redirect_to projects_path, alert: 'Project not found!'
   end
 
   def project_params
