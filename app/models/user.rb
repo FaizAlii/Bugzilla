@@ -5,8 +5,7 @@ class User < ApplicationRecord
 
   has_many :project_assignments, dependent: :destroy
   has_many :projects, through: :project_assignments
-  has_many :bug_assignments, dependent: :destroy
-  has_many :bugs, through: :bug_assignments
+  has_many :bugs, dependent: :destroy
 
   has_and_belongs_to_many :roles, join_table: :users_roles
   accepts_nested_attributes_for :roles
@@ -20,7 +19,6 @@ class User < ApplicationRecord
   validates :name, :email, presence: true, length: { maximum: 255 }
   validates :email, uniqueness: true, format: Devise.email_regexp
   validates :password, confirmation: true
-  validates :password_confirmation, presence: true
   # validates :roles, presence: true
   # validate :user_must_select_atleast_one_role
 

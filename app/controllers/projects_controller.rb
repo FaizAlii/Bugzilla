@@ -20,37 +20,26 @@ class ProjectsController < ApplicationController
     @project = current_user.projects.create(project_params)
     authorize @project
 
-    respond_to do |format|
-      if @project.save
-        format.html { redirect_to project_path(@project), notice: 'Project was successfully created.' }
-        format.json { render :show, status: :created }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @project.errors, status: :unprocessable_entity }
-      end
+    if @project.save
+      redirect_to project_path(@project), notice: 'Project was successfully created.'
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
   def update
-    respond_to do |format|
-      if @project.update(project_params)
-        format.html { redirect_to project_path(@project), notice: 'Project was successfully updated.' }
-        format.json { render :show, status: :ok, location: @project }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @project.errors, status: :unprocessable_entity }
-      end
+    if @project.update(project_params)
+      redirect_to project_path(@project), notice: 'Project was successfully updated.'
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
-    respond_to do |format|
-      if @project.destroy
-        format.html { redirect_to projects_path, notice: 'Project was successfully destroyed.' }
-        format.json { head :no_content }
-      else
-        format.html { redirect_to projects_path, notice: 'Project could not be destroyed.' }
-      end
+    if @project.destroy
+      redirect_to projects_path, notice: 'Project was successfully destroyed.'
+    else
+      redirect_to projects_path, alert: 'Project could not be destroyed.'
     end
   end
 

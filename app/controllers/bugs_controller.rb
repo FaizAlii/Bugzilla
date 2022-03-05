@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
 class BugsController < ApplicationController
-  before_action :set_bug, only: %i[show edit update destroy]
-  before_action :set_project
-  before_action :set_new_bug, only: %i[create]
-  before_action :authorize_bug, only: %i[create edit update destroy]
-  before_action :set_bug_type, only: %i[create edit update destroy]
+  before_action :set_bug, only: %i[show edit update assign destroy]
+  before_action :set_project, except: :user_bugs
+  before_action :authorize_bug, only: %i[edit update destroy]
+  before_action :set_bug_type, only: %i[edit update destroy]
 
   def index
     @bugs = @project.bugs.all
@@ -14,38 +13,44 @@ class BugsController < ApplicationController
   def show; end
 
   def new
-    @bug = Bug.new
+    @bug = @project.bugs.new
   end
 
   def edit; end
 
   def create
-    respond_to do |format|
-      if @bug.save
-        current_user.bugs << @bug
-        format.html do
-          redirect_to project_bug_path(@project, @bug), notice: "#{@bug_type} was successfully created."
-        end
-        format.json { render :show, status: :created, location: @bug }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @bug.errors, status: :unprocessable_entity }
-      end
+    @bug = @project.bugs.create(bug_params)
+    authorize @bug
+
+    if @bug.save
+      redirect_to project_bug_path(@project, @bug), notice: "#{@bug.bug_type.capitalize} was successfully created."
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
   def update
-    respond_to do |format|
-      if @bug.update(bug_params)
-        format.html do
-          redirect_to project_bug_path(@project, @bug), notice: "#{@bug_type} was successfully updated."
-        end
-        format.json { render :show, status: :ok, location: @bug }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @bug.errors, status: :unprocessable_entity }
-      end
+    if @bug.update(bug_params)
+      redirect_to project_bug_path(@project, @bug), notice: "#{@bug_type} was successfully updated."
+    else
+      render :edit, status: :unprocessable_entity
     end
+  end
+
+  def assign
+    if @bug.dev_id == current_user.id
+      redirect_to project_bug_path(@project, @bug),
+                  alert: "#{@bug.bug_type.capitalize} has already been assigned to you."
+    else
+      @bug.dev_id = current_user.id
+      @bug.save
+      redirect_to project_bug_path(@project, @bug),
+                  notice: "#{@bug.bug_type.capitalize} was successfully assigned to you."
+    end
+  end
+
+  def user_bugs
+    @bugs = policy_scope(Bug)
   end
 
   def destroy
@@ -73,12 +78,9 @@ class BugsController < ApplicationController
     redirect_to projects_path, alert: 'Project not found!'
   end
 
-  def set_new_bug
-    @bug = @project.bugs.new(bug_params)
-  end
-
   def bug_params
-    params.require(:bug).permit(:title, :description, :deadline, :bug_type, :status, :image)
+    params.require(:bug).permit(:title, :description, :deadline, :bug_type, :status,
+                                :image).merge(user_id: current_user.id)
   end
 
   def authorize_bug

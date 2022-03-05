@@ -2,8 +2,8 @@
 
 class Bug < ApplicationRecord
   belongs_to :project
-  has_many :bug_assignments, dependent: :destroy
-  has_many :users, through: :bug_assignments
+  belongs_to :user
+  belongs_to :dev, class_name: 'User', optional: true
   has_one_attached :image, dependent: :destroy
 
   validates :title, :status, :bug_type, :deadline, presence: true

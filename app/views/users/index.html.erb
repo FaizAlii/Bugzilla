@@ -1,40 +1,29 @@
-<div class=" counter col-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3 border border-radius-5 p-3 mt-3">
-  <h3 class="count-heading mt-3 mx-4">My Projects: <%= current_user.projects.count %></h3>
-  <% if current_user.has_any_role? :QA, :Developer %>
-    <h3 class="count-heading mt-3 mx-4">My Bugs: <%= current_user.bugs.count %></h3>
-  <% end %>
-</div>
+<% if @users.count.positive? %>
+  <div class="col-12 col-md-10 col-lg-8 offset-md-1 offset-lg-2 border border-radius-5 p-3 mt-5">
+      <h3 class="table-heading"><%= @user_type + 's:' %></h3>
 
-<% if current_user.projects.count.positive? %>
-  <div class="col-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3 border border-radius-5 p-3 mt-5">
-    <h3 class="table-heading">My Projects</h3>
-
-    <table class="table table-hover table-responsive">
-      <thead class="thead-light">
-        <tr>
-          <th>Name</th>
-          <th>Description</th>
-          <th>View Bugs</th>
-          <th>Edit</th>
-          <th>Delete</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <% current_user.projects.each do |project| %>
+      <table class="table table-hover table-responsive">
+        <thead class="thead-light">
           <tr>
-            <td><%= link_to project.name, project_path(project) %></td>
-            <td><%= project.description %></td>
-            <td><%= link_to 'View Bugs', project_bugs_path(project) %></td>
-            <td><%= link_to 'Edit', edit_project_path(project) %></td>
-            <td><%= link_to 'Destroy', project_path(project), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Add User</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
-<% end %>
+        </thead>
 
-<% if policy(Project).create? %>
-  <%= link_to 'New Project >', new_project_path, class: "nav-btn btn btn-primary col-3 col-md-3 col-lg-2 offset-8 offset-md-7 offset-lg-7" %>
+        <tbody>
+          <% @users.each do |user| %>
+            <tr>
+              <td><%= user.name %></td>
+              <td><%= user.email %></td>
+              <td><%= link_to 'Add User', project_assignments_path(project_id: @project_id, user_id: user.id), method: :post %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+<% else %>
+  <div class=" counter col-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3 border border-radius-5 p-3 mt-3">
+    <h3 class="count-heading mt-3 mx-4">No <%= @user_type + 's' %> found!</h3>
+  </div>
 <% end %>

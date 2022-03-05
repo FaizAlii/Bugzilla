@@ -30,6 +30,6 @@
   <%= link_to '< Edit', edit_project_bug_path(@project, @bug), class: "nav-btn btn btn-primary col-3 col-md-3 col-lg-2 offset-1 offset-lg-2" %>
 <% end %>
 
-<% if policy(User).assign_bug? %>
-  <%= link_to 'Assign Myself >', assign_bug_path(user_id: current_user.id, bug_id: @bug.id), class: "nav-btn btn btn-primary col-3 col-md-3 col-lg-2 offset-4 offset-md-4 offset-lg-4" %>
+<% if policy(@bug).assign? %>
+  <%= link_to 'Assign Myself >', assign_project_bug_path(@project, @bug), class: "nav-btn btn btn-primary col-3 col-md-3 col-lg-2 offset-4 offset-md-4 offset-lg-4" %>
 <% end %>
