@@ -26,7 +26,7 @@ class BugPolicy < ApplicationPolicy
   end
 
   def assign?
-    @user.has_role? :Developer
+    (@user.has_role? :Developer) && @record.dev_id.nil?
   end
 
   def destroy?

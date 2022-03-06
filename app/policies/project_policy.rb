@@ -22,6 +22,6 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def destroy?
-    (@user.has_role? :Manager) # && (@record.users.first == user)
+    (@user.has_role? :Manager) && (@record.users.first == user)
   end
 end

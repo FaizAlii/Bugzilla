@@ -40,7 +40,7 @@ class BugsController < ApplicationController
   def assign
     if @bug.dev_id == current_user.id
       redirect_to project_bug_path(@project, @bug),
-                  alert: "#{@bug.bug_type.capitalize} has already been assigned to you."
+                  alert: "#{@bug.bug_type.capitalize} cannot be assigned to you."
     else
       @bug.dev_id = current_user.id
       @bug.save

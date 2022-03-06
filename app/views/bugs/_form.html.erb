@@ -1,5 +1,5 @@
 <%= form_with(model: [project, bug], local: true, class: "col-12 col-md-6 col-lg-4 border border-radius-5 mt-5 p-4") do |form| %>
-  <h3 class="form-heading mb-4"><%= form_type %></h3>
+  <h3 class="form-heading mb-4">Edit <%= @bug_type %></h3>
 
   <% if bug.errors.any? %>
     <div id="error_explanation">

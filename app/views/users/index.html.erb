@@ -16,7 +16,7 @@
             <tr>
               <td><%= user.name %></td>
               <td><%= user.email %></td>
-              <td><%= link_to 'Add User', project_assignments_path(project_id: @project_id, user_id: user.id), method: :post %></td>
+              <td><%= link_to 'Add User', project_assignments_path(project_id: @project_id, user_id: user.id, user_type: @user_type), method: :post %></td>
             </tr>
           <% end %>
         </tbody>
@@ -24,6 +24,6 @@
     </div>
 <% else %>
   <div class=" counter col-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3 border border-radius-5 p-3 mt-3">
-
+    <h3 class="table-heading">No <%= @user_type + 's' %> found!</h3>
   </div>
 <% end %>
