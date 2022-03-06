@@ -14,7 +14,7 @@
       <div class="controls align-items-center">
         <% Role.all.each do |role| %>
           <div class="form-check form-check-inline">
-            <%= check_box_tag "users_roles[role_ids][]", role.id, @user.role_ids.include?(role.id), class: 'form-check-input' %>
+            <%= check_box_tag "user[role_ids][]", role.id, @user.role_ids.include?(role.id), { class: 'form-check-input' } %>
             <%= role.name %>
           </div>
         <% end %>
