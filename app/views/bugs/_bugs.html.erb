@@ -1,29 +1,42 @@
 <div class="col-12 col-md-10 col-lg-8 offset-md-1 offset-lg-2 border border-radius-5 p-3 mt-5">
   <h3 class="table-heading">Bugs</h3>
 
-  <table class="table table-hover table-responsive">
-    <thead class="thead-light">
-      <tr>
-        <th>Title</th>
-        <th>Deadline</th>
-        <th>Type</th>
-        <th>Status</th>
-        <th>Edit</th>
-        <th>Delete</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% bugs.each do |bug| %>
-        <tr>
-          <td><%= link_to bug.title, project_bug_path(project, bug) %></td>
-          <td><%= bug.deadline %></td>
-          <td><%= bug.bug_type.capitalize %></td>
-          <td><%= bug.status.capitalize %></td>
-          <td><%= link_to 'Edit', edit_project_bug_path(project, bug) %></td>
-          <td><%= link_to 'Destroy', project_bug_path(project, bug), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
+  <%= form_tag(project_bugs_path(project), method: :get, class: "form-group col-6 col-md-5 col-xl-4 offset-6 offset-md-7 offset-xl-8 mb-3") do %>
+    <div class="input-group">
+      <%= text_field_tag(:search, params[:search], class: "form-control search-field d-inline w-75", placeholder: "Search Bugs") %>
+      <%= button_tag(type: "submit", class: "btn btn-submit btn-primary d-inline w-25") do %>
+        <i class="fa fa-search"></i>
       <% end %>
-    </tbody>
-  </table>
+    </div>
+  <% end %>
+
+  <% if @bugs.count.positive? %>
+    <table class="table table-hover table-responsive">
+      <thead class="thead-light">
+        <tr>
+          <th>Title</th>
+          <th>Deadline</th>
+          <th>Type</th>
+          <th>Status</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% bugs.each do |bug| %>
+          <tr>
+            <td><%= link_to bug.title, project_bug_path(project, bug) %></td>
+            <td><%= bug.deadline %></td>
+            <td><%= bug.bug_type.capitalize %></td>
+            <td><%= bug.status.capitalize %></td>
+            <td><%= link_to 'Edit', edit_project_bug_path(project, bug) %></td>
+            <td><%= link_to 'Destroy', project_bug_path(project, bug), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <h3 class="table-heading">No Bugs Found!</h3>
+  <% end %>
 </div>

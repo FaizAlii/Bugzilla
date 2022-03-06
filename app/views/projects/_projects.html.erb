@@ -1,25 +1,38 @@
 <div class="col-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3 border border-radius-5 p-3 mt-5">
   <h3 class="table-heading">Projects</h3>
 
-  <table class="table table-hover table-responsive">
-    <thead class="thead-light">
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Edit</th>
-        <th>Delete</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% projects.each do |project| %>
-        <tr>
-          <td><%= link_to project.name, project_path(project) %></td>
-          <td><%= project.description %></td>
-          <td><%= link_to 'Edit', edit_project_path(project) %></td>
-          <td><%= link_to 'Destroy', project_path(project), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
+  <%= form_tag(projects_path, method: :get, class: "form-group col-6 col-md-5 col-xl-4 offset-6 offset-md-7 offset-xl-8 mb-3") do %>
+    <div class="input-group">
+      <%= text_field_tag(:search, params[:search], class: "form-control search-field d-inline w-75", placeholder: "Search Projects") %>
+      <%= button_tag(type: "submit", class: "btn btn-submit btn-primary d-inline w-25") do %>
+        <i class="fa fa-search"></i>
       <% end %>
-    </tbody>
-  </table>
+    </div>
+  <% end %>
+
+  <% if projects.count.positive? %>
+    <table class="table table-hover table-responsive">
+      <thead class="thead-light">
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% projects.each do |project| %>
+          <tr>
+            <td><%= link_to project.name, project_path(project) %></td>
+            <td><%= project.description %></td>
+            <td><%= link_to 'Edit', edit_project_path(project) %></td>
+            <td><%= link_to 'Destroy', project_path(project), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <h3 class="table-heading">No Projects Found!</h3>
+  <% end %>
 </div>

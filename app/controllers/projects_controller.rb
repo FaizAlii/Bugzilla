@@ -6,6 +6,10 @@ class ProjectsController < ApplicationController
 
   def index
     @projects = policy_scope(Project)
+
+    return unless params[:search] && params[:search] != ''
+
+    @projects = @projects.where('projects.name like ?', "%#{params[:search]}%")
   end
 
   def show; end

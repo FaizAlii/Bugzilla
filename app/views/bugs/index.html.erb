@@ -1,10 +1,4 @@
-<% if @bugs.count.positive? %>
-  <%= render 'bugs', project: @project, bugs: @bugs %>
-<% else %>
-  <div class=" counter col-12 col-md-10 col-lg-8 offset-md-1 offset-lg-2 border border-radius-5 p-3 mt-3">
-    <h3 class="count-heading mt-3 mx-4">This project has no bugs yet!</h3>
-  </div>
-<% end %>
+<%= render 'bugs', project: @project, bugs: @bugs %>
 
 <%= link_to '< Back', project_path(@project), class: "nav-btn btn btn-primary col-3 col-md-3 offset-1 col-lg-2 offset-md-1 offset-lg-2" %>
 

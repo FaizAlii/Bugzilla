@@ -8,6 +8,10 @@ class BugsController < ApplicationController
 
   def index
     @bugs = @project.bugs.all
+
+    return unless params[:search] && params[:search] != ''
+
+    @bugs = @bugs.where('title like ?', "%#{params[:search]}%")
   end
 
   def show; end
