@@ -1,23 +1,5 @@
-<% if @search_results_users.count.positive? %>
-  <table class="table table-hover table-responsive">
-    <thead class="thead-light">
-      <tr>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Add User</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @search_results_users.each do |user| %>
-        <tr>
-          <td><%= user.name %></td>
-          <td><%= user.email %></td>
-          <td><%= link_to 'Add User', project_assignments_path(project_id: @project_id, user_id: user.id, user_type: @user_type), method: :post %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+<% if @search_results.exists? %>
+  <%= render 'users_table', users: @search_results, project_id: @project_id, user_type: @user_type %>
 <% else %>
   <h3 class="table-heading">No <% @user_type + 's'%> Found!</h3>
 <% end %>

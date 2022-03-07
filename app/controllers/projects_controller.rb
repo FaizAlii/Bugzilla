@@ -9,7 +9,7 @@ class ProjectsController < ApplicationController
 
     return unless params[:search] && params[:search] != ''
 
-    @search_results_projects = @projects.search_by_name(params[:search])
+    @search_results = @projects.search_by_name(params[:search])
     respond_to do |format|
       format.js { render partial: 'search_results' }
     end
@@ -27,7 +27,7 @@ class ProjectsController < ApplicationController
     @project = current_user.projects.create(project_params)
     authorize @project
 
-    if @project.save
+    if @project.valid?
       redirect_to project_path(@project), notice: 'Project was successfully created.'
     else
       render :new, status: :unprocessable_entity

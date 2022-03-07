@@ -7,7 +7,7 @@ class ProjectAssignmentsController < ApplicationController
     @project_assignment = ProjectAssignment.create(project_assignment_params)
     authorize @project_assignment
 
-    if @project_assignment.save
+    if @project_assignment.valid?
       AssignmentMailer.with(project: @project, user: @user).project_assignment_email.deliver_later
       redirect_to project_path(@project),
                   notice: "#{@user.name} was successfully added to #{@project.name}."

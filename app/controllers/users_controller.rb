@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   def index
     return unless params[:search] && params[:search] != ''
 
-    @search_results_users = @users.search_by_name_and_email(params[:search])
+    @search_results = @users.search_by_name_and_email(params[:search])
     respond_to do |format|
       format.js { render partial: 'search_results' }
     end
