@@ -9,7 +9,10 @@ class ProjectsController < ApplicationController
 
     return unless params[:search] && params[:search] != ''
 
-    @projects = @projects.where('projects.name like ?', "%#{params[:search]}%")
+    @search_results_projects = @projects.search_by_name(params[:search])
+    respond_to do |format|
+      format.js { render partial: 'search_results' }
+    end
   end
 
   def show; end

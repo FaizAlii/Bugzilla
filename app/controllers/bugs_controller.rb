@@ -11,7 +11,10 @@ class BugsController < ApplicationController
 
     return unless params[:search] && params[:search] != ''
 
-    @bugs = @bugs.where('title like ?', "%#{params[:search]}%")
+    @search_results_bugs = @bugs.search_by_title(params[:search])
+    respond_to do |format|
+      format.js { render partial: 'search_results' }
+    end
   end
 
   def show; end

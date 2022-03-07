@@ -2,6 +2,7 @@
 
 class User < ApplicationRecord
   rolify
+  include PgSearch
 
   has_many :project_assignments, dependent: :destroy
   has_many :projects, through: :project_assignments
@@ -26,4 +27,6 @@ class User < ApplicationRecord
   def user_must_select_atleast_one_role
     errors.add(:role, 'You must select at least one role') if role_ids.empty?
   end
+
+  pg_search_scope :search_by_name_and_email, against: %i[name email], using: { tsearch: { prefix: true } }
 end

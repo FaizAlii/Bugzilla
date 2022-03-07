@@ -4,31 +4,34 @@
   <%= render 'layouts/search_bar', path: project_bugs_path(project), search_name: 'Bugs' %>
 
   <% if @bugs.count.positive? %>
-    <table class="table table-hover table-responsive">
-      <thead class="thead-light">
-        <tr>
-          <th>Title</th>
-          <th>Deadline</th>
-          <th>Type</th>
-          <th>Status</th>
-          <th>Edit</th>
-          <th>Delete</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <% bugs.each do |bug| %>
+    <div id="bugs-table">
+      <table class="table table-hover table-responsive">
+        <thead class="thead-light">
           <tr>
-            <td><%= link_to bug.title, project_bug_path(project, bug) %></td>
-            <td><%= bug.deadline %></td>
-            <td><%= bug.bug_type.capitalize %></td>
-            <td><%= bug.status.capitalize %></td>
-            <td><%= link_to 'Edit', edit_project_bug_path(project, bug) %></td>
-            <td><%= link_to 'Destroy', project_bug_path(project, bug), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <th>Title</th>
+            <th>Deadline</th>
+            <th>Type</th>
+            <th>Status</th>
+            <th>Edit</th>
+            <th>Delete</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+
+        <tbody>
+          <% bugs.each do |bug| %>
+            <tr>
+              <td><%= link_to bug.title, project_bug_path(project, bug) %></td>
+              <td><%= bug.deadline %></td>
+              <td><%= bug.bug_type.capitalize %></td>
+              <td><%= bug.status.capitalize %></td>
+              <td><%= link_to 'Edit', edit_project_bug_path(project, bug) %></td>
+              <td><%= link_to 'Destroy', project_bug_path(project, bug), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div id="search-results"></div>
   <% else %>
     <h3 class="table-heading">No Bugs Found!</h3>
   <% end %>

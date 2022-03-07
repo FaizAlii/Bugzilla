@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Bug < ApplicationRecord
+  include PgSearch
+
   belongs_to :project
   belongs_to :user
   belongs_to :dev, class_name: 'User', optional: true
@@ -11,4 +13,6 @@ class Bug < ApplicationRecord
 
   enum bug_type: { feature: 0, bug: 1 }
   enum status: { new: 0, started: 1, completed: 2, resolved: 3 }, _prefix: true
+
+  pg_search_scope :search_by_title, against: :title, using: { tsearch: { prefix: true } }
 end

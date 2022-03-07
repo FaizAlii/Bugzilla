@@ -52,6 +52,8 @@ gem 'cloudinary'
 gem 'figaro'
 # font awesome icons
 gem 'font-awesome-rails'
+# for search
+gem 'pg_search'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
