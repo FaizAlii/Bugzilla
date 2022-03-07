@@ -2,16 +2,7 @@
   <div class="col-12 col-md-10 col-lg-8 offset-md-1 offset-lg-2 border border-radius-5 p-3 mt-5">
       <h3 class="table-heading"><%= @user_type + 's:' %></h3>
 
-      <%= form_tag(users_path, method: :get, class: "form-group col-5 col-md-4 col-xl-3 offset-7 offset-md-8 offset-xl-9 mb-3") do %>
-        <%= hidden_field_tag :user_type, @user_type %>
-        <%= hidden_field_tag :project_id, @project_id %>
-        <div class="input-group">
-          <%= text_field_tag(:search, params[:search], class: "form-control search-field d-inline w-75", placeholder: "Search Users") %>
-          <%= button_tag(type: "submit", class: "btn btn-submit btn-primary d-inline w-25") do %>
-            <i class="fa fa-search"></i>
-          <% end %>
-        </div>
-      <% end %>
+      <%= render 'layouts/search_bar', path: users_path, search_name: 'Users' %>
 
       <table class="table table-hover table-responsive">
         <thead class="thead-light">

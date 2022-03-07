@@ -1,14 +1,7 @@
 <div class="col-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3 border border-radius-5 p-3 mt-5">
   <h3 class="table-heading">Projects</h3>
 
-  <%= form_tag(projects_path, method: :get, class: "form-group col-6 col-md-5 col-xl-4 offset-6 offset-md-7 offset-xl-8 mb-3") do %>
-    <div class="input-group">
-      <%= text_field_tag(:search, params[:search], class: "form-control search-field d-inline w-75", placeholder: "Search Projects") %>
-      <%= button_tag(type: "submit", class: "btn btn-submit btn-primary d-inline w-25") do %>
-        <i class="fa fa-search"></i>
-      <% end %>
-    </div>
-  <% end %>
+  <%= render 'layouts/search_bar', path: projects_path, search_name: 'Projects' %>
 
   <% if projects.count.positive? %>
     <table class="table table-hover table-responsive">
