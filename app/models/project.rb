@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Project < ApplicationRecord
-  include PgSearch
+  include PgSearch::Model
 
   has_many :project_assignments, dependent: :destroy
   has_many :users, through: :project_assignments

@@ -16,6 +16,8 @@ user1 = User.new(
 )
 user1.skip_confirmation!
 user1.save!
+user2.roles = []
+user2.add_role('Manager')
 
 user2 = User.new(
   name: 'Faiz',

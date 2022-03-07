@@ -4,6 +4,8 @@ development:
  api_secret: "ShTA0XMWnO7JJe63uMVOq5RGuoo"
  enhance_image_tag: 'true'
  static_file_support: 'false'
+ email: 'faizz.ali@devsinc.com'
+ gmail_password: 'wnyojjfycqbdvqtn'
 
 production:
  cloud_name: "faizali"
@@ -11,6 +13,8 @@ production:
  api_secret: "ShTA0XMWnO7JJe63uMVOq5RGuoo"
  enhance_image_tag: 'true'
  static_file_support: 'true'
+ email: 'faizz.ali@devsinc.com'
+ gmail_password: 'wnyojjfycqbdvqtn'
 
 test:
  cloud_name: "faizali"

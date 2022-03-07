@@ -8,7 +8,7 @@
     <%= creator(@project)&.name %>
   </p>
 
-  <% if @project.users.drop(1).exists? %>
+  <% if @project.users.drop(1).count.positive? %>
     <div class="offset-1 offset-lg-2">
       <h3>Assigned to:</h3>
       <ol>

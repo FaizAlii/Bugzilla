@@ -8,7 +8,6 @@ class ProjectAssignmentsController < ApplicationController
     authorize @project_assignment
 
     if @project_assignment.valid?
-      AssignmentMailer.with(project: @project, user: @user).project_assignment_email.deliver_later
       redirect_to project_path(@project),
                   notice: "#{@user.name} was successfully added to #{@project.name}."
     else
@@ -22,7 +21,6 @@ class ProjectAssignmentsController < ApplicationController
     authorize @project_assignment
 
     if @project_assignment.destroy
-      AssignmentMailer.with(project: @project, user: @user).project_unassignment_email.deliver_later
       redirect_to project_path(@project),
                   notice: "#{@user.name} was successfully removed from #{@project.name}."
     else

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Bug < ApplicationRecord
-  include PgSearch
+  include PgSearch::Model
 
   belongs_to :project
   belongs_to :user
