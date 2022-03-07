@@ -6,9 +6,11 @@
       <%= f.text_field :name, class: 'form-control', autofocus: true, autocomplete: "name", placeholder: "Name" %>
     </div>
 
+  <% if request_type == 'post' %>
     <div class="form-group mb-4 field">
       <%= f.email_field :email, class: 'form-control text-decoration-none', autocomplete: "email", placeholder: "Email" %>
     </div>
+  <% end %>
 
     <div class="form-group mb-4 field">
       <div class="controls align-items-center">
