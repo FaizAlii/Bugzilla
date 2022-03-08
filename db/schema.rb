@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_04_215045) do
+ActiveRecord::Schema.define(version: 2022_03_08_200807) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -67,7 +67,7 @@ ActiveRecord::Schema.define(version: 2022_03_04_215045) do
   end
 
   create_table "projects", force: :cascade do |t|
-    t.citext "name", null: false
+    t.string "name", limit: 255, null: false
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -75,7 +75,7 @@ ActiveRecord::Schema.define(version: 2022_03_04_215045) do
   end
 
   create_table "roles", force: :cascade do |t|
-    t.string "name"
+    t.string "name", limit: 255
     t.string "resource_type"
     t.bigint "resource_id"
     t.datetime "created_at", null: false

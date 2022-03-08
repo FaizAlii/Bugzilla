@@ -1,20 +1,11 @@
 <%= form_with(model: [project, bug], local: true, class: "col-12 col-md-6 col-lg-4 border border-radius-5 mt-5 p-4") do |form| %>
   <h3 class="form-heading mb-4">Edit <%= @bug_type %></h3>
 
-  <% if bug.errors.any? %>
-    <div id="error_explanation">
-      <ul>
-      <% bug.errors.full_messages.each do |message| %>
-        <li class="text-danger"><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
   <% if policy(Bug).create? %>
     <div class="form-group mb-4 field">
       <%= form.label :title, class: 'mb-2' %>
       <%= form.text_field :title, class: 'form-control', autofocus: true, autocomplete: "title" %>
+      <%= render "devise/shared/error_messages", resource: bug, field: :title %>
     </div>
 
     <div class="form-group mb-4 field">

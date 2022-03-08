@@ -1,14 +1,15 @@
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: request_type, class: "col-12 col-md-6 col-lg-4 border border-radius-5 mt-5 p-4"}) do |f| %>
     <h3 class="form-heading"><%= form_type %></h3>
-    <%= render "devise/shared/error_messages", resource: resource %>
 
     <div class="form-group mb-4 field">
       <%= f.text_field :name, class: 'form-control', autofocus: true, autocomplete: "name", placeholder: "Name" %>
+      <%= render "devise/shared/error_messages", resource: resource, field: :name %>
     </div>
 
   <% if request_type == 'post' %>
     <div class="form-group mb-4 field">
       <%= f.email_field :email, class: 'form-control text-decoration-none', autocomplete: "email", placeholder: "Email" %>
+      <%= render "devise/shared/error_messages", resource: resource, field: :email %>
     </div>
   <% end %>
 
@@ -21,6 +22,7 @@
           </div>
         <% end %>
       </div>
+      <%= render "devise/shared/error_messages", resource: resource, field: :role %>
     </div>
 
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
@@ -28,24 +30,19 @@
     <% end %>
 
     <div class="form-group mb-4 field">
-      <%= f.password_field :password, autocomplete: "new-password", class: 'form-control', placeholder: "New Password" %>
-      <small class="form-text text-muted">
-        <% if @minimum_password_length %>
-          (<%= @minimum_password_length %> characters minimum)
-        <% end %>
-      </small>
+      <%= f.password_field :password, autocomplete: "new-password", class: 'form-control', placeholder: "New Password (#{@minimum_password_length} characters minimum)" %>
+      <%= render "devise/shared/error_messages", resource: resource, field: :password %>
     </div>
 
     <div class="form-group mb-4 field">
       <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control', placeholder: "Confirm Password" %>
+      <%= render "devise/shared/error_messages", resource: resource, field: :password_confirmation %>
     </div>
 
     <% if request_type == 'put' %>
       <div class="form-group mb-4 field">
-        <%= f.password_field :current_password, autocomplete: "current-password", class: 'form-control', placeholder: "Current Password" %>
-        <small class="form-text text-muted">
-          (We need your password to confirm your changes)
-        </small>
+        <%= f.password_field :current_password, autocomplete: "current-password", class: 'form-control', placeholder: "Current Password (Required to confirm your changes)" %>
+        <%= render "devise/shared/error_messages", resource: resource, field: :current_password %>
       </div>
     <% end %>
 
