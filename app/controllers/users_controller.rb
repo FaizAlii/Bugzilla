@@ -4,11 +4,11 @@ class UsersController < ApplicationController
   before_action :set_params
 
   def index
-    return unless params[:search] && params[:search] != ''
+    @users = @users.search_by_name_and_email(params[:search]) if params[:search].present?
 
-    @search_results = @users.search_by_name_and_email(params[:search])
     respond_to do |format|
-      format.js { render partial: 'search_results' }
+      format.js
+      format.html
     end
   end
 

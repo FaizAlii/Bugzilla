@@ -1,5 +1,0 @@
-<% if @search_results.exists? %>
-  <%= render 'users_table', users: @search_results, project_id: @project_id, user_type: @user_type %>
-<% else %>
-  <h3 class="table-heading">No <% @user_type + 's'%> Found!</h3>
-<% end %>

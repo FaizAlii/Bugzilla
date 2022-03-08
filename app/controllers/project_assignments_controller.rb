@@ -2,10 +2,10 @@
 
 class ProjectAssignmentsController < ApplicationController
   before_action :set_params
+  before_action :authorize_assignment
 
   def create
     @project_assignment = ProjectAssignment.create(project_assignment_params)
-    authorize @project_assignment
 
     if @project_assignment.valid?
       redirect_to project_path(@project),
@@ -18,7 +18,6 @@ class ProjectAssignmentsController < ApplicationController
 
   def destroy
     @project_assignment = ProjectAssignment.find_by(project_assignment_params)
-    authorize @project_assignment
 
     if @project_assignment.destroy
       redirect_to project_path(@project),
@@ -39,5 +38,9 @@ class ProjectAssignmentsController < ApplicationController
     @project = Project.find(params[:project_id])
     @user = User.find(params[:user_id])
     @user_type = params[:user_type]
+  end
+
+  def authorize_assignment
+    authorize ProjectAssignment
   end
 end

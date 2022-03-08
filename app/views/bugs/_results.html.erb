@@ -1,5 +1,0 @@
-<% if @search_results.exists? %>
-  <%= render 'bugs_table', project: @project, bugs: @search_results %>
-<% else %>
-  <h3 class="table-heading">No Bugs Found!</h3>
-<% end %>

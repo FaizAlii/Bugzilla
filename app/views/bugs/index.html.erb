@@ -3,14 +3,9 @@
 
   <%= render 'layouts/search_bar', path: project_bugs_path(@project), search_name: 'Bugs' %>
 
-  <% if @bugs.exists? %>
-    <div id="bugs-table">
-      <%= render 'bugs_table', project: @project, bugs: @bugs %>
-    </div>
-    <div id="search-results"></div>
-  <% else %>
-    <h3 class="table-heading">No Bugs Found!</h3>
-  <% end %>
+  <div id="bugs-table">
+    <%= render 'bugs_table', project: @project, bugs: @bugs %>
+  </div>
 </div>
 
 

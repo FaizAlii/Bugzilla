@@ -3,15 +3,15 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: %i[show edit update destroy]
   before_action :authorize_project, only: %i[edit update destroy]
+  before_action :authorize_new_project, only: %i[new create]
 
   def index
     @projects = policy_scope(Project)
+    @projects = @projects.search_by_name(params[:search]) if params[:search].present?
 
-    return unless params[:search] && params[:search] != ''
-
-    @search_results = @projects.search_by_name(params[:search])
     respond_to do |format|
-      format.js { render partial: 'search_results' }
+      format.js
+      format.html
     end
   end
 
@@ -24,10 +24,10 @@ class ProjectsController < ApplicationController
   def edit; end
 
   def create
-    @project = current_user.projects.create(project_params)
-    authorize @project
+    @project = current_user.projects.new(project_params)
+    @project.project_assignments.build(user: current_user)
 
-    if @project.valid?
+    if @project.save
       redirect_to project_path(@project), notice: 'Project was successfully created.'
     else
       render :new, status: :unprocessable_entity
@@ -64,5 +64,9 @@ class ProjectsController < ApplicationController
 
   def authorize_project
     authorize @project
+  end
+
+  def authorize_new_project
+    authorize Project
   end
 end

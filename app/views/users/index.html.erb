@@ -3,12 +3,7 @@
 
     <%= render 'layouts/search_bar', path: users_path, search_name: 'Users' %>
 
-    <% if @users.exists? %>
-      <div id="users-table">
-        <%= render 'users_table', users: @users, project_id: @project_id, user_type: @user_type %>
-      </div>
-      <div id="search-results"></div>
-  <% else %>
-    <h3 class="table-heading">No <%= @user_type + 's' %> found!</h3>
-  <% end %>
+    <div id="users-table">
+      <%= render 'users_table', users: @users, project_id: @project_id, user_type: @user_type %>
+    </div>
 </div>

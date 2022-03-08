@@ -1,0 +1,1 @@
+$("#bugs-table").html("<%= escape_javascript(render partial: 'bugs_table', locals: { project: @project, bugs: @bugs }) %>");

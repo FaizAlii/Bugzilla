@@ -3,15 +3,9 @@
 
   <%= render 'layouts/search_bar', path: projects_path, search_name: 'Projects' %>
 
-  <% if @projects.exists? %>
-    <div id="posts-table">
-      <%= render 'projects_table', projects: @projects %>
-    </div>
-    <div id="search-results">
-    </div>
-  <% else %>
-    <h3 class="table-heading">No Projects Found!</h3>
-  <% end %>
+  <div id="posts-table">
+    <%= render 'projects_table', projects: @projects %>
+  </div>
 </div>
 
 <% if policy(Project).create? %>

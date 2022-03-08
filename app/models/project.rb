@@ -3,7 +3,7 @@
 class Project < ApplicationRecord
   include PgSearch::Model
 
-  has_many :project_assignments, dependent: :destroy
+  has_many :project_assignments, dependent: :delete_all
   has_many :users, through: :project_assignments
   has_many :bugs, dependent: :destroy
 

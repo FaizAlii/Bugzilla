@@ -13,6 +13,10 @@ class BugPolicy < ApplicationPolicy
     end
   end
 
+  def new?
+    @user.has_role? :QA
+  end
+
   def create?
     @user.has_role? :QA
   end
@@ -22,7 +26,7 @@ class BugPolicy < ApplicationPolicy
   end
 
   def update?
-    @user.has_any_role? :QA, :Developer
+    (@user.has_any_role? :QA) || (@record.dev_id == @user.id)
   end
 
   def assign?

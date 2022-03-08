@@ -3,18 +3,18 @@
 class BugsController < ApplicationController
   before_action :set_bug, only: %i[show edit update assign destroy]
   before_action :set_project, except: :user_bugs
-  before_action :authorize_bug, only: %i[edit update destroy]
+  before_action :authorize_bug, only: %i[edit update assign destroy]
+  before_action :authorize_new_bug, only: %i[new create]
   before_action :set_bug_type, only: %i[edit update destroy]
   before_action :assign_bug, only: :assign
 
   def index
     @bugs = @project.bugs.all
+    @bugs = @bugs.search_by_title(params[:search]) if params[:search].present?
 
-    return unless params[:search] && params[:search] != ''
-
-    @search_results = @bugs.search_by_title(params[:search])
     respond_to do |format|
-      format.js { render partial: 'search_results' }
+      format.js
+      format.html
     end
   end
 
@@ -27,10 +27,8 @@ class BugsController < ApplicationController
   def edit; end
 
   def create
-    @bug = @project.bugs.create(bug_params)
-    authorize @bug
-
-    if @bug.valid?
+    @bug = @project.bugs.new(bug_params)
+    if @bug.save
       redirect_to project_bug_path(@project, @bug), notice: "#{@bug.bug_type.capitalize} was successfully created."
     else
       render :new, status: :unprocessable_entity
@@ -91,6 +89,10 @@ class BugsController < ApplicationController
 
   def authorize_bug
     authorize @bug
+  end
+
+  def authorize_new_bug
+    authorize Bug
   end
 
   def set_bug_type
