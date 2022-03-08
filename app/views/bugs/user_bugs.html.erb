@@ -1,4 +1,8 @@
-<% if @bugs.exists? %>
+<% if @bugs.empty? %>
+  <div class=" counter col-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3 border border-radius-5 p-3 mt-3">
+    <h3 class="count-heading mt-3 mx-4">You don't have any bugs yet!</h3>
+  </div>
+<% else %>
   <div class="col-12 col-md-10 col-lg-8 offset-md-1 offset-lg-2 border border-radius-5 p-3 mt-5">
     <h3 class="table-heading">Your Bugs</h3>
 
@@ -29,9 +33,5 @@
         <% end %>
       </tbody>
     </table>
-  </div>
-<% else %>
-  <div class=" counter col-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3 border border-radius-5 p-3 mt-3">
-    <h3 class="count-heading mt-3 mx-4">You don't have any bugs yet!</h3>
   </div>
 <% end %>

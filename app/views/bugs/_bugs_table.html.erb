@@ -1,4 +1,6 @@
-<% if bugs.exists? %>
+<% if bugs.empty? %>
+  <h3 class="table-heading">No Bugs Found!</h3>
+<% else %>
   <table class="table table-hover table-responsive">
     <thead class="thead-light">
       <tr>
@@ -24,6 +26,4 @@
       <% end %>
     </tbody>
   </table>
-<% else %>
-  <h3 class="table-heading">No Bugs Found!</h3>
 <% end %>

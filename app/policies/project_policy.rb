@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class ProjectPolicy < ApplicationPolicy
-  attr_reader :user, :project
-
   class Scope < Scope
     def resolve
       if user.has_any_role? :Manager, :QA
@@ -18,10 +16,8 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def update?
-    (@user.has_role? :Manager) && (@record.users.first == user)
+    (user.has_role? :Manager) && (record.users.first == user)
   end
 
-  def destroy?
-    (@user.has_role? :Manager) && (@record.users.first == user)
-  end
+  alias destroy? update?
 end

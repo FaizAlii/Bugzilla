@@ -15,7 +15,9 @@ class ProjectsController < ApplicationController
     end
   end
 
-  def show; end
+  def show
+    @users = @project.users.drop(1)
+  end
 
   def new
     @project = current_user.projects.new

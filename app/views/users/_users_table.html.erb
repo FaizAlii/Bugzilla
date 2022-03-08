@@ -1,4 +1,6 @@
-<% if users.exists? %>
+<% if users.empty? %>
+  <h3 class="table-heading">No <%= user_type + 's' %> found!</h3>
+<% else %>
   <table class="table table-hover table-responsive">
     <thead class="thead-light">
       <tr>
@@ -18,6 +20,4 @@
       <% end %>
     </tbody>
   </table>
-<% else %>
-  <h3 class="table-heading">No <%= user_type + 's' %> found!</h3>
 <% end %>
