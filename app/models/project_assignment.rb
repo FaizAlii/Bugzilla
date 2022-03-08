@@ -10,9 +10,7 @@ class ProjectAssignment < ApplicationRecord
   default_scope { order(created_at: :asc) }
 
   def send_project_assignment_mail
-    @user = User.find(user_id)
-
-    return if @user.has_role? :Manager
+    return if id == Project.find(project_id).project_assignments.first.id
 
     AssignmentMailer.with(project_id: project_id, user_id: user_id).project_assignment_email.deliver_later
   end
