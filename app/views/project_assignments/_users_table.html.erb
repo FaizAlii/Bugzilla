@@ -1,6 +1,4 @@
-<% if users.empty? %>
-  <h3 class="table-heading">No <%= user_type + 's' %> found!</h3>
-<% else %>
+<% if users.present? %>
   <table class="table table-hover table-responsive">
     <thead class="thead-light">
       <tr>
@@ -15,9 +13,15 @@
         <tr>
           <td><%= user.name %></td>
           <td><%= user.email %></td>
-          <td><%= link_to 'Add User', project_assignments_path(project_id: project_id, user_id: user.id, user_type: user_type), method: :post %></td>
+          <% if policy(project).edit? %>
+            <td><%= link_to 'Add User', project_assignments_path(project: project, user_id: user.id, user_type: user_type), method: :post %></td>
+          <% else %>
+            <td>-</td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>
   </table>
+<% else %>
+  <h3 class="table-heading">No <%= user_type + 's' %> found!</h3>
 <% end %>

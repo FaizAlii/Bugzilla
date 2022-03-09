@@ -12,12 +12,18 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def create?
-    @user.has_role? :Manager
+    user.has_role? :Manager
   end
 
-  def update?
+  def edit?
     (user.has_role? :Manager) && (record.users.first == user)
   end
 
-  alias destroy? update?
+  def show?
+    (user.has_any_role? :Manager, :QA) || record.users.exists?(user.id)
+  end
+
+  alias new? create?
+  alias update? edit?
+  alias destroy? edit?
 end

@@ -1,9 +1,9 @@
   <div class="col-12 col-md-10 col-lg-8 offset-md-1 offset-lg-2 border border-radius-5 p-3 mt-5">
     <h3 class="table-heading"><%= @user_type + 's:' %></h3>
 
-    <%= render 'layouts/search_bar', path: users_path, search_name: 'Users' %>
+    <%= render 'layouts/search_bar', path: new_project_assignment_path, search_name: 'Users' %>
 
     <div id="users-table">
-      <%= render 'users_table', users: @users, project_id: @project_id, user_type: @user_type %>
+      <%= render 'users_table', users: @users, project: @project, user_type: @user_type %>
     </div>
 </div>

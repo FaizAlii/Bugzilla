@@ -29,4 +29,6 @@ class User < ApplicationRecord
   end
 
   pg_search_scope :search_by_name_and_email, against: %i[name email], using: { tsearch: { prefix: true } }
+
+  scope :unassigned_users, ->(project_id) { where.not(id: Project.find(project_id).users).distinct }
 end

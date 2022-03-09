@@ -20,6 +20,8 @@ class Bug < ApplicationRecord
   private
 
   def image_type
+    return unless image.attached?
+
     errors.add(:image, 'needs to be a gif or png!') unless image.content_type.in?(%('image/gif image/png'))
   end
 end

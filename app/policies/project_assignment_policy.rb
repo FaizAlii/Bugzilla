@@ -2,7 +2,7 @@
 
 class ProjectAssignmentPolicy < ApplicationPolicy
   def create?
-    (@user.has_role? :Manager)
+    (user.has_role? :Manager) && record.project.users.first == user
   end
 
   alias destroy? create?

@@ -15,15 +15,22 @@ class BugPolicy < ApplicationPolicy
     user.has_role? :QA
   end
 
+  def show?
+    (user.has_any_role? :QA, :Manager) || record.project.users.exists?(user.id)
+  end
+
   def edit?
-    (user.has_role? :QA) || (record.dev_id == user.id)
+    ((user.has_role? :QA) && (record.user_id == user.id)) || (record.dev_id == user.id)
   end
 
   def assign?
-    (user.has_role? :Developer) && record.dev_id.nil?
+    (user.has_role? :Developer) && record.dev_id.nil? && record.project.project_assignments.exists?(user_id: user.id)
   end
 
-  alias destroy? new?
+  def destroy?
+    (user.has_role? :QA) && (record.user_id == user.id)
+  end
+
   alias create? new?
   alias update? edit?
 end

@@ -1,7 +1,7 @@
 <% if policy(project).update? %>
   <%= link_to 'Edit', edit_project_path(project), class: "nav-btn btn btn-primary col-3 col-md-2 offset-1 offset-md-2" %>
-  <%= link_to 'Add Developer', users_path(user_type: 'Developer', project_id: project.id), class: "nav-btn btn btn-primary col-4 col-md-2 offset-md-1" %>
-  <%= link_to 'Add QA', users_path(user_type: 'QA', project_id: project.id), class: "nav-btn btn btn-primary col-3 col-md-2 offset offset-md-1" %>
+  <%= link_to 'Add Developer', new_project_assignment_path(user_type: 'Developer', project_id: project.id), class: "nav-btn btn btn-primary col-4 col-md-2 offset-md-1" %>
+  <%= link_to 'Add QA', new_project_assignment_path(user_type: 'QA', project_id: project.id), class: "nav-btn btn btn-primary col-3 col-md-2 offset offset-md-1" %>
 <% end %>
 <% if policy(Bug).create? %>
   <%= link_to 'Report Bug', new_project_bug_path(project), class: "nav-btn btn btn-primary col-4 col-md-2 offset-4 offset-md-5" %>

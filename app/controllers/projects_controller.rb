@@ -2,7 +2,7 @@
 
 class ProjectsController < ApplicationController
   before_action :set_project, only: %i[show edit update destroy]
-  before_action :authorize_project, only: %i[edit update destroy]
+  before_action :authorize_project, only: %i[show edit update destroy]
   before_action :authorize_new_project, only: %i[new create]
 
   def index
@@ -16,7 +16,7 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    @users = @project.users.drop(1)
+    @project_assignments = @project.project_assignments.includes(:user)
   end
 
   def new

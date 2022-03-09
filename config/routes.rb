@@ -3,8 +3,6 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  resources :users, only: :index
-
   resources :projects do
     resources :bugs do
       get 'assign', on: :member
@@ -15,7 +13,7 @@ Rails.application.routes.draw do
     get 'user_bugs', on: :collection
   end
 
-  resources :project_assignments, only: %i[create destroy]
+  resources :project_assignments, only: %i[new create destroy]
 
   devise_scope :user do
     root to: 'devise/sessions#new'

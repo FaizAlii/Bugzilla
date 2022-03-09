@@ -3,13 +3,14 @@
 class BugsController < ApplicationController
   before_action :set_bug, only: %i[show edit update assign destroy]
   before_action :set_project, except: :user_bugs
-  before_action :authorize_bug, only: %i[edit update assign destroy]
+  before_action :authorize_bug, only: %i[show edit update assign destroy]
   before_action :authorize_new_bug, only: %i[new create]
+  before_action :authorize_project, only: :index
   before_action :set_bug_type, only: %i[edit update destroy]
   before_action :assign_bug, only: :assign
 
   def index
-    @bugs = @project.bugs.all
+    @bugs = @project.bugs
     @bugs = @bugs.search_by_title(params[:search]) if params[:search].present?
 
     respond_to do |format|
@@ -93,6 +94,10 @@ class BugsController < ApplicationController
 
   def authorize_new_bug
     authorize Bug
+  end
+
+  def authorize_project
+    authorize @project, :show?
   end
 
   def set_bug_type
