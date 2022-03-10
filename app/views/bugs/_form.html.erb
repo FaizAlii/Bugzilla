@@ -16,6 +16,7 @@
     <div class="form-group mb-4 field">
       <%= form.label :deadline, class: 'mb-2' %><br>
       <%= form.datetime_select :deadline, {}, { class: 'datepicker text-muted' } %>
+      <%= render "devise/shared/error_messages", resource: bug, field: :deadline %>
     </div>
 
     <% if @bug.image.attached? %>

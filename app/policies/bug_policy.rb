@@ -24,7 +24,7 @@ class BugPolicy < ApplicationPolicy
   end
 
   def assign?
-    (user.has_role? :Developer) && record.dev_id.nil? && record.project.project_assignments.exists?(user_id: user.id)
+    (user.has_role? :Developer) && record.dev_id.nil? && record.project.users.exists?(user.id)
   end
 
   def destroy?

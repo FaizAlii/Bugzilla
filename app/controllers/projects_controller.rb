@@ -16,7 +16,7 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    @project_assignments = @project.project_assignments.includes(:user)
+    @project_assignments = @project.project_assignments.includes(:user).drop(1)
   end
 
   def new
@@ -46,18 +46,17 @@ class ProjectsController < ApplicationController
 
   def destroy
     if @project.destroy
-      redirect_to projects_path, notice: 'Project was successfully destroyed.'
+      flash[:notice] = 'Project was successfully destroyed.'
     else
-      redirect_to projects_path, alert: 'Project could not be destroyed.'
+      flash[:alert] = @project.errors.full_messages.to_sentence
     end
+    redirect_to projects_path
   end
 
   private
 
   def set_project
     @project = Project.find(params[:id])
-  rescue ActiveRecord::RecordNotFound
-    redirect_to projects_path, alert: 'Project not found!'
   end
 
   def project_params

@@ -22,7 +22,7 @@ class ProjectAssignmentsController < ApplicationController
       redirect_to project_path(@project),
                   notice: "#{@user.name} was successfully added to #{@project.name}."
     else
-      render :new, alert: "#{@user.name} has already been added to #{@project.name}."
+      render :new, alert: @project_assignment.errors.full_messages.to_sentence
     end
   end
 
@@ -31,12 +31,11 @@ class ProjectAssignmentsController < ApplicationController
     authorize @project_assignment
 
     if @project_assignment.destroy
-      redirect_to project_path(@project),
-                  notice: "#{@user.name} was successfully removed from #{@project.name}."
+      flash[:notice] = "#{@user.name} was successfully removed from #{@project.name}."
     else
-      redirect_to project_path(@project),
-                  alert: "#{@user.name} has already been removed from #{@project.name}."
+      flash[:alert] = @project_assignment.errors.full_messages.to_sentence
     end
+    redirect_to project_path(@project)
   end
 
   private
@@ -53,7 +52,6 @@ class ProjectAssignmentsController < ApplicationController
 
   def set_new_params
     @user_type = params[:user_type]
-    # @project_id = params[:project_id]
     @project = Project.find(params[:project_id])
     @users = User.unassigned_users(params[:project_id]).with_role(@user_type)
     @project_assignment = ProjectAssignment.new

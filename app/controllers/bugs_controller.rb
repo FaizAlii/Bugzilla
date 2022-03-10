@@ -7,7 +7,6 @@ class BugsController < ApplicationController
   before_action :authorize_new_bug, only: %i[new create]
   before_action :authorize_project, only: :index
   before_action :set_bug_type, only: %i[edit update destroy]
-  before_action :assign_bug, only: :assign
 
   def index
     @bugs = @project.bugs
@@ -45,13 +44,12 @@ class BugsController < ApplicationController
   end
 
   def assign
-    if @bug.save
-      redirect_to project_bug_path(@project, @bug),
-                  notice: "#{@bug.bug_type.capitalize} was successfully assigned to you."
+    if @bug.update(dev_id: current_user.id)
+      flash[:notice] = "#{@bug.bug_type.capitalize} was successfully assigned to you."
     else
-      redirect_to project_bug_path(@project, @bug),
-                  alert: "#{@bug.bug_type.capitalize} cannot be assigned to you."
+      flash[:alert] = @bug.errors.full_messages.to_sentence
     end
+    redirect_to project_bug_path(@project, @bug)
   end
 
   def user_bugs
@@ -59,28 +57,22 @@ class BugsController < ApplicationController
   end
 
   def destroy
-    respond_to do |format|
-      if @bug.destroy
-        format.html { redirect_to project_bugs_path(@project), notice: "#{@bug_type} was successfully destroyed." }
-        format.json { head :no_content }
-      else
-        format.html { redirect_to project_bugs_path(@project), notice: "#{@bug_type} could not be destroyed!" }
-      end
+    if @bug.destroy
+      flash[:notice] = "#{@bug_type} was successfully destroyed."
+    else
+      flash[:alert] = @bug.errors.full_messages.to_sentence
     end
+    redirect_to project_bugs_path(@project)
   end
 
   private
 
   def set_bug
     @bug = Bug.find(params[:id])
-  rescue ActiveRecord::RecordNotFound
-    redirect_to projects_path, alert: 'Bug not found!'
   end
 
   def set_project
     @project = Project.find(params[:project_id])
-  rescue ActiveRecord::RecordNotFound
-    redirect_to projects_path, alert: 'Project not found!'
   end
 
   def bug_params
@@ -102,14 +94,5 @@ class BugsController < ApplicationController
 
   def set_bug_type
     @bug_type = @bug.bug_type.capitalize
-  end
-
-  def assign_bug
-    if @bug.dev_id == current_user.id
-      redirect_to project_bug_path(@project, @bug),
-                  alert: "#{@bug.bug_type.capitalize} cannot be assigned to you."
-    else
-      @bug.dev_id = current_user.id
-    end
   end
 end
