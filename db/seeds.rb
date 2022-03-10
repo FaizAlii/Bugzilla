@@ -14,7 +14,7 @@ user1 = User.new(
   email: 'faizz.ali@devsinc.com',
   password: 'faizali',
   password_confirmation: 'faizali',
-  role_ids: [25]
+  role_ids: [1]
 )
 user1.skip_confirmation!
 user1.save!
@@ -24,7 +24,7 @@ user2 = User.new(
   email: 'faiz.ali@devsinc.com',
   password: 'faizali',
   password_confirmation: 'faizali',
-  role_ids: [26]
+  role_ids: [2]
 )
 user2.skip_confirmation!
 user2.save!
@@ -34,7 +34,7 @@ user3 = User.new(
   email: 'faizalidecco264@gmail.com',
   password: 'faizali',
   password_confirmation: 'faizali',
-  role_ids: [27]
+  role_ids: [3]
 )
 user3.skip_confirmation!
 user3.save!
