@@ -31,6 +31,5 @@ class ApplicationController < ActionController::Base
   def record_not_found
     flash[:alert] = 'Record not Found!.'
     redirect_to(request.referer || root_path)
-    # render plain: "404 Not Found", status: 404
   end
 end
