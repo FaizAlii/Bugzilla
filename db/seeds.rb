@@ -12,33 +12,30 @@ user1 = User.new(
   name: 'Faiz Ali',
   email: 'faizz.ali@devsinc.com',
   password: 'faizali',
-  password_confirmation: 'faizali'
+  password_confirmation: 'faizali',
+  role_ids: ['1']
 )
 user1.skip_confirmation!
 user1.save!
-user1.roles = []
-user1.add_role('Manager')
 
 user2 = User.new(
   name: 'Faiz',
   email: 'faiz.ali@devsinc.com',
   password: 'faizali',
-  password_confirmation: 'faizali'
+  password_confirmation: 'faizali',
+  role_ids: ['2']
 )
 user2.skip_confirmation!
 user2.save!
-user2.roles = []
-user2.add_role('QA')
 
 user3 = User.new(
   name: 'Faizz',
   email: 'faizalidecco264@gmail.com',
   password: 'faizali',
-  password_confirmation: 'faizali'
+  password_confirmation: 'faizali',
+  role_ids: ['3']
 )
 user3.skip_confirmation!
 user3.save!
-user3.roles = []
-user3.add_role('Developer')
 
 Rails.logger.debug '3 Users created successfully!'
