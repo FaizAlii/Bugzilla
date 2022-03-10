@@ -6,6 +6,7 @@ This project expects the following tools installed on your devise.
 - Github
 - Ruby [2.7](https://www.ruby-lang.org/en/news/2019/12/25/ruby-2-7-0-released/)
 - Rails [5.2](https://guides.rubyonrails.org/5_2_release_notes.html)
+- Postgres [14.2](https://www.postgresql.org/docs/14/)
 
 ## Install
 ### Clone the repository
@@ -38,6 +39,14 @@ Using [Cloudinary](https://cloudinary.com) for uploading images on cloud.
 
 You can see cloudinary config vars/keys on Dashboard or download the cloudinary.yml file directly.
 
+### Gems used
+
+- [Devise](https://github.com/heartcombo/devise)
+- [Pundit](https://github.com/varvet/pundit)
+- [Rolify](https://github.com/RolifyCommunity/rolify)
+- [jquery-rails](https://github.com/rails/jquery-rails)
+- [Bootstrap](https://github.com/twbs/bootstrap-rubygem)
+- [Pg_Search](https://github.com/Casecommons/pg_search)
 ### Set environment variables
 
 Using [Figaro](https://github.com/laserlemon/figaro):
