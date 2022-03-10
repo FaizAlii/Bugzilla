@@ -1,0 +1,33 @@
+<% if projects.empty? %>
+  <h3 class="table-heading">No Projects Found!</h3>
+<% else %>
+  <table class="table table-hover table-responsive">
+    <thead class="thead-light">
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% projects.each do |project| %>
+        <tr>
+          <td><%= link_to project.name, project_path(project) %></td>
+          <td><%= project.description %></td>
+          <% if policy(project).edit? %>
+            <td><%= link_to 'Edit', edit_project_path(project) %></td>
+          <% else %>
+            <td>-</td>
+          <% end %>
+          <% if policy(project).destroy? %>
+            <td><%= link_to 'Destroy', project_path(project), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% else %>
+            <td>-</td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

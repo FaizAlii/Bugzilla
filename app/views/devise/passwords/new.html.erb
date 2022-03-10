@@ -4,8 +4,8 @@
 
     <div class="form-group mb-4 field">
       <%= f.email_field :email, class: 'form-control', autofocus: true, autocomplete: "email", placeholder: "Email" %>
+      <%= render "devise/shared/error_messages", resource: resource, field: :email %>
     </div>
-    <%= render "devise/shared/error_messages", resource: resource %>
 
     <div class="form-group mb-4 actions">
       <%= f.submit "Send me reset password instructions", class: 'btn btn-primary btn-submit' %>

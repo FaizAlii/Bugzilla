@@ -2,54 +2,55 @@
 
 class ProjectsController < ApplicationController
   before_action :set_project, only: %i[show edit update destroy]
-  before_action :set_new_project, only: %i[create]
-  before_action :authorize_project, only: %i[create edit update destroy]
-  before_action :set_projects, only: :index
+  before_action :authorize_project, only: %i[show edit update destroy]
+  before_action :authorize_new_project, only: %i[new create]
 
-  def index; end
+  def index
+    @projects = policy_scope(Project)
+    @projects = @projects.search_by_name(params[:search]) if params[:search].present?
 
-  def show; end
+    respond_to do |format|
+      format.js
+      format.html
+    end
+  end
+
+  def show
+    @project_assignments = @project.project_assignments.includes(:user).drop(1)
+  end
 
   def new
-    @project = Project.new
+    @project = current_user.projects.new
   end
 
   def edit; end
 
   def create
-    respond_to do |format|
-      if @project.save
-        current_user.projects << @project
-        format.html { redirect_to users_path, notice: 'Project was successfully created.' }
-        format.json { render 'users/index', status: :created }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @project.errors, status: :unprocessable_entity }
-      end
+    @project = current_user.projects.new(project_params)
+    @project.project_assignments.build(user: current_user)
+
+    if @project.save
+      redirect_to project_path(@project), notice: 'Project was successfully created.'
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
   def update
-    respond_to do |format|
-      if @project.update(project_params)
-        format.html do
-          redirect_to user_project_url(current_user, @project), notice: 'Project was successfully updated.'
-        end
-        format.json { render :show, status: :ok, location: @project }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @project.errors, status: :unprocessable_entity }
-      end
+    if @project.update(project_params)
+      redirect_to project_path(@project), notice: 'Project was successfully updated.'
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @project.destroy
-
-    respond_to do |format|
-      format.html { redirect_to user_projects_url(current_user), notice: 'Project was successfully destroyed.' }
-      format.json { head :no_content }
+    if @project.destroy
+      flash[:notice] = 'Project was successfully destroyed.'
+    else
+      flash[:alert] = @project.errors.full_messages.to_sentence
     end
+    redirect_to projects_path
   end
 
   private
@@ -58,23 +59,15 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
   end
 
-  def set_projects
-    @projects = if current_user.has_any_role? :Manager, :QA
-                  Project.all
-                else
-                  current_user.projects.all
-                end
-  end
-
-  def set_new_project
-    @project = Project.new(project_params)
-  end
-
   def project_params
     params.require(:project).permit(:name, :description)
   end
 
   def authorize_project
     authorize @project
+  end
+
+  def authorize_new_project
+    authorize Project
   end
 end

@@ -1,6 +1,6 @@
-<div class="col-12 col-md-10 col-lg-8 offset-md-1 offset-lg-2 border border-radius-5 p-3 mt-5">
-  <h3 class="table-heading">Bugs</h3>
-
+<% if bugs.empty? %>
+  <h3 class="table-heading">No Bugs Found!</h3>
+<% else %>
   <table class="table table-hover table-responsive">
     <thead class="thead-light">
       <tr>
@@ -20,10 +20,18 @@
           <td><%= bug.deadline %></td>
           <td><%= bug.bug_type.capitalize %></td>
           <td><%= bug.status.capitalize %></td>
-          <td><%= link_to 'Edit', edit_project_bug_path(project, bug) %></td>
-          <td><%= link_to 'Destroy', project_bug_path(project, bug), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% if policy(bug).edit? %>
+            <td><%= link_to 'Edit', edit_project_bug_path(project, bug) %></td>
+          <% else %>
+            <td>-</td>
+          <% end %>
+          <% if policy(bug).destroy? %>
+            <td><%= link_to 'Destroy', project_bug_path(project, bug), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% else %>
+            <td>-</td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>
   </table>
-</div>
+<% end %>

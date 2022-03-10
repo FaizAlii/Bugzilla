@@ -1,13 +1,13 @@
-<% if @projects.count.positive? %>
-  <%= render 'projects', projects: @projects %>
-<% else %>
-  <div class=" counter col-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3 border border-radius-5 p-3 mt-3">
-    <h3 class="count-heading mt-3 mx-4">You don't have any projects yet!</h3>
-  </div>
-<% end %>
+<div class="col-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3 border border-radius-5 p-3 mt-5">
+  <h3 class="table-heading">Projects</h3>
 
-<%= link_to '< Back', users_path, class: "nav-btn btn btn-primary col-3 col-md-3 offset-1 col-lg-2 offset-md-2 offset-lg-3" %>
+  <%= render 'layouts/search_bar', path: projects_path, search_name: 'Projects' %>
+
+  <div id="posts-table">
+    <%= render 'projects_table', projects: @projects %>
+  </div>
+</div>
 
 <% if policy(Project).create? %>
-  <%= link_to 'New Project >', new_user_project_path(current_user), class: "nav-btn btn btn-primary col-3 col-md-3 col-lg-2 offset-4 offset-md-2 offset-lg-2" %>
+  <%= link_to 'New Project >', new_project_path, class: "nav-btn btn btn-primary col-4 col-md-3 col-lg-2 offset-7 offset-md-7" %>
 <% end %>

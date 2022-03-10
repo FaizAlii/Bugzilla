@@ -1,12 +1,15 @@
-<% if @bugs.count.positive? %>
-  <%= render 'bugs', project: @project, bugs: @bugs %>
-<% else %>
-  <div class=" counter col-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3 border border-radius-5 p-3 mt-3">
-    <h3 class="count-heading mt-3 mx-4">You don't have any bugs yet!</h3>
-  </div>
-<% end %>
+<div class="col-12 col-md-10 col-lg-8 offset-md-1 offset-lg-2 border border-radius-5 p-3 mt-5">
+  <h3 class="table-heading">Bugs</h3>
 
-<%= link_to '< Back', user_project_path(current_user, @project), class: "nav-btn btn btn-primary col-3 col-md-3 offset-1 col-lg-2 offset-md-1 offset-lg-2" %>
+  <%= render 'layouts/search_bar', path: project_bugs_path(@project), search_name: 'Bugs' %>
+
+  <div id="bugs-table">
+    <%= render 'bugs_table', project: @project, bugs: @bugs %>
+  </div>
+</div>
+
+
+<%= link_to '< Back', project_path(@project), class: "nav-btn btn btn-primary col-3 col-md-3 offset-1 col-lg-2 offset-md-1 offset-lg-2" %>
 
 <% if policy(Bug).create? %>
   <%= link_to 'New Bug >', new_project_bug_path(@project), class: "nav-btn btn btn-primary col-3 col-md-3 col-lg-2 offset-4 offset-md-4 offset-lg-4" %>

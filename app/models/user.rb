@@ -2,12 +2,15 @@
 
 class User < ApplicationRecord
   rolify
-  after_create :assign_default_role
+  include PgSearch::Model
 
   has_many :project_assignments, dependent: :destroy
   has_many :projects, through: :project_assignments
-  has_many :bug_assignments, dependent: :destroy
-  has_many :bugs, through: :bug_assignments
+  has_many :bugs, dependent: :destroy
+
+  # rubocop:disable Rails/HasAndBelongsToMany
+  has_and_belongs_to_many :roles, join_table: :users_roles
+  # rubocop:enable Rails/HasAndBelongsToMany
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -15,9 +18,17 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :confirmable
 
-  private
+  validates :name, :email, presence: true, length: { maximum: 255 }
+  validates :email, uniqueness: true, format: Devise.email_regexp
+  validates :password, confirmation: true
 
-  def assign_default_role
-    add_role(:Manager) if roles.blank?
+  validate :user_must_select_atleast_one_role
+
+  def user_must_select_atleast_one_role
+    errors.add(:role, ':Atleast one must be checked') if role_ids.empty?
   end
+
+  pg_search_scope :search_by_name_and_email, against: %i[name email], using: { tsearch: { prefix: true } }
+
+  scope :unassigned_users, ->(project_id) { where.not(id: Project.find(project_id).users).distinct }
 end

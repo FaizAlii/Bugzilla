@@ -1,24 +1,36 @@
 # frozen_string_literal: true
 
 class BugPolicy < ApplicationPolicy
-  attr_reader :user, :bug
-
   class Scope < Scope
+    def resolve
+      if user.has_role? :QA
+        user.bugs
+      else
+        scope.where(dev_id: user.id)
+      end
+    end
   end
 
-  def create?
-    @user.has_role? :QA
+  def new?
+    user.has_role? :QA
+  end
+
+  def show?
+    (user.has_any_role? :QA, :Manager) || record.project.users.exists?(user.id)
   end
 
   def edit?
-    (@user.has_role? :QA) || (@user.bugs.include? @record)
+    ((user.has_role? :QA) && (record.user_id == user.id)) || (record.dev_id == user.id)
   end
 
-  def update?
-    @user.has_any_role? :QA, :Developer
+  def assign?
+    (user.has_role? :Developer) && record.dev_id.nil? && record.project.users.exists?(user.id)
   end
 
   def destroy?
-    @user.has_role? :QA
+    (user.has_role? :QA) && (record.user_id == user.id)
   end
+
+  alias create? new?
+  alias update? edit?
 end

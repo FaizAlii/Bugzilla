@@ -1,0 +1,12 @@
+<%= form_tag(path, method: :get, remote: true, "data-type": :"script",  class: "form-group col-5 col-md-4 col-xl-3 offset-7 offset-md-8 offset-xl-9 mb-3") do %>
+  <% if search_name == 'Users' %>
+    <%= hidden_field_tag :user_type, @user_type %>
+    <%= hidden_field_tag :project_id, @project_id %>
+  <% end %>
+  <div class="input-group">
+    <%= text_field_tag(:search, params[:search], class: "form-control search-field d-inline w-75", placeholder: "Search #{search_name}") %>
+    <%= button_tag(type: "submit", class: "btn btn-submit btn-primary d-inline w-25") do %>
+      <i class="fa fa-search"></i>
+    <% end %>
+  </div>
+<% end %>

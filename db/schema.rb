@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_25_102925) do
+ActiveRecord::Schema.define(version: 2022_03_08_200807) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -37,16 +37,6 @@ ActiveRecord::Schema.define(version: 2022_02_25_102925) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "bug_assignments", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "bug_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["bug_id", "user_id"], name: "by_bug_and_user", unique: true
-    t.index ["bug_id"], name: "index_bug_assignments_on_bug_id"
-    t.index ["user_id"], name: "index_bug_assignments_on_user_id"
-  end
-
   create_table "bugs", force: :cascade do |t|
     t.string "title", limit: 255, null: false
     t.text "description"
@@ -56,10 +46,14 @@ ActiveRecord::Schema.define(version: 2022_02_25_102925) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "project_id", null: false
+    t.bigint "user_id"
+    t.bigint "dev_id"
     t.index ["bug_type"], name: "index_bugs_on_bug_type"
+    t.index ["dev_id"], name: "index_bugs_on_dev_id"
     t.index ["project_id"], name: "index_bugs_on_project_id"
     t.index ["status"], name: "index_bugs_on_status"
-    t.index ["title"], name: "index_bugs_on_title", unique: true
+    t.index ["title", "project_id"], name: "index_bugs_on_title_and_project_id", unique: true
+    t.index ["user_id"], name: "index_bugs_on_user_id"
   end
 
   create_table "project_assignments", force: :cascade do |t|
@@ -73,7 +67,7 @@ ActiveRecord::Schema.define(version: 2022_02_25_102925) do
   end
 
   create_table "projects", force: :cascade do |t|
-    t.citext "name", null: false
+    t.string "name", limit: 255, null: false
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -81,12 +75,13 @@ ActiveRecord::Schema.define(version: 2022_02_25_102925) do
   end
 
   create_table "roles", force: :cascade do |t|
-    t.string "name"
+    t.string "name", limit: 255
     t.string "resource_type"
     t.bigint "resource_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
+    t.index ["name"], name: "index_roles_on_name", unique: true
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource_type_and_resource_id"
   end
 
@@ -118,9 +113,9 @@ ActiveRecord::Schema.define(version: 2022_02_25_102925) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "bug_assignments", "bugs"
-  add_foreign_key "bug_assignments", "users"
   add_foreign_key "bugs", "projects"
+  add_foreign_key "bugs", "users"
+  add_foreign_key "bugs", "users", column: "dev_id"
   add_foreign_key "project_assignments", "projects"
   add_foreign_key "project_assignments", "users"
 end
