@@ -9,6 +9,8 @@ class ProjectAssignmentsController < ApplicationController
     @project = Project.find(params[:project_id])
     @users = User.unassigned_users(params[:project_id]).with_role(@user_type)
     @project_assignment = ProjectAssignment.new
+
+    authorize @project, :edit?
   end
 
   def create
@@ -45,9 +47,5 @@ class ProjectAssignmentsController < ApplicationController
     @project = Project.find(params[:project_id])
     @user = User.find(params[:user_id])
     @user_type = params[:user_type]
-  end
-
-  def authorize_project
-    authorize @project, :edit?
   end
 end
