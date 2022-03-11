@@ -5,11 +5,6 @@
 
     <div class="form-group mb-4 field">
       <%= f.password_field :password, class: 'form-control', autofocus: true, autocomplete: "new-password", placeholder: "Password (#{@minimum_password_length} characters minimum)" %>
-      <small class="form-text text-muted">
-        <% if @minimum_password_length %>
-          (<%= @minimum_password_length %> characters minimum)
-        <% end %>
-      </small>
       <%= render "devise/shared/error_messages", resource: resource, field: :password %>
     </div>
 
