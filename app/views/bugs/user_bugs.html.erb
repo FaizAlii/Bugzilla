@@ -30,12 +30,12 @@
             <% if policy(bug).edit? %>
               <td><%= link_to 'Edit', edit_project_bug_path(bug.project, bug) %></td>
             <% else %>
-              <td>-</td>
+              <td class="text-muted">Edit</td>
             <% end %>
             <% if policy(bug).destroy? %>
-              <td><%= link_to 'Destroy', project_bug_path(bug.project, bug), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              <td><%= link_to 'Delete', project_bug_path(bug.project, bug), method: :delete, data: { confirm: 'Are you sure?' } %></td>
             <% else %>
-              <td>-</td>
+              <td class="text-muted">Delete</td>
             <% end %>
           </tr>
         <% end %>

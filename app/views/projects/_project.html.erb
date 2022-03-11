@@ -9,18 +9,31 @@
   </p>
 
   <% if project_assignments.any? %>
-    <div class="offset-1 offset-lg-2">
-      <h3>Assigned to:</h3>
-      <ol>
-        <% project_assignments.each do |project_assignment| %>
-          <li>
-            <%= "#{project_assignment.user.name} (#{roles(project_assignment.user)}) " %>
-            <% if policy(project_assignment).destroy? %>
-              <%= link_to 'Remove User', project_assignment_path(id: project_assignment.id, project_id: project.id, user_id: project_assignment.user_id), method: :delete, class: "nav-btn btn btn-danger col-5 col-md-4 col-lg-3 ms-4" %>
-            <% end %>
-          </li>
-        <% end %>
-      </ol>
+    <div class="col-lg-10 offset-lg-1">
+      <h3 class="table-heading">Assigned Users</h3>
+      <table class="table table-hover table-responsive">
+        <thead class="thead-light">
+          <tr>
+            <th class="col-3">Name</th>
+            <th class="col-3">Roles</th>
+            <th class="col-3">Remove</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% project_assignments.each do |project_assignment| %>
+            <tr>
+              <td><%= "#{project_assignment.user.name}" %></td>
+              <td><%= "#{roles(project_assignment.user)}" %></td>
+              <% if policy(project_assignment).destroy? %>
+                <td><%= link_to 'Remove User', project_assignment_path(id: project_assignment.id, project_id: project.id, user_id: project_assignment.user_id), method: :delete, class: "text-danger text-disabled" %></td>
+              <% else %>
+                <td class="text-muted">Remove User</td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
     </div>
   <% end %>
 </div>

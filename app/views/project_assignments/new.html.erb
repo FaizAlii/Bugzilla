@@ -20,7 +20,7 @@
                 <% if policy(@project).edit? %>
                   <td><%= link_to 'Add User', project_assignments_path(project_id: @project.id, user_id: user.id, user_type: @user_type), method: :post %></td>
                 <% else %>
-                  <td>-</td>
+                  <td class="text-muted">Add User</td>
                 <% end %>
               </tr>
             <% end %>
