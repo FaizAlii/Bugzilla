@@ -8,6 +8,7 @@ class Project < ApplicationRecord
   has_many :bugs, dependent: :destroy
 
   validates :name, presence: true, length: { maximum: 255 }, uniqueness: true
+  validates :description, presence: true
 
   pg_search_scope :search_by_name, against: :name, using: { tsearch: { prefix: true } }
 end
