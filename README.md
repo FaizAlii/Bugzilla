@@ -55,6 +55,19 @@ See [config/application.yml.sample](https://github.com/juliendargelos/project/bl
 
 Add ENV variables for [gmail](gmail.com) and [cloudinary](cloudinary.com) in application.yml
 
+#### ENV vairables names
+
+##### For Gmail:
+
+- email
+- gmail_password
+
+##### For Cloudinary:
+
+- cloud_name
+- api_key
+- api_secret
+
 ### Initialize the database
 
 ```shell
