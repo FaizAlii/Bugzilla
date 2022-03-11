@@ -40,3 +40,47 @@ user3.skip_confirmation!
 user3.save!
 
 Rails.logger.debug '3 Users created successfully!'
+
+project1 = user1.projects.new(
+  name: 'Project 1',
+  description: 'This is a new Project.'
+)
+
+project1.project_assignments.build(user: user1)
+project1.save!
+
+project2 = user1.projects.new(
+  name: 'Project 2',
+  description: 'This is also a new Project.'
+)
+
+project2.project_assignments.build(user: user1)
+project2.save!
+
+ProjectAssignment.create!(
+  user_id: user3.id,
+  project_id: project1.id
+)
+
+Bug.destroy_all
+
+bug1 = project1.bugs.create!(
+  title: 'New Bug',
+  description: 'This is a new bug.',
+  deadline: Date.tomorrow.in_time_zone.change(hour: 11),
+  bug_type: 'bug',
+  status: 'new',
+  user_id: user2.id
+)
+
+bug1.dev_id = user3.id
+bug1.save!
+
+project2.bugs.create!(
+  title: 'New Bug on Project 2',
+  description: 'This is a new bug on Project 2.',
+  deadline: Date.tomorrow.in_time_zone.change(hour: 11),
+  bug_type: 'feature',
+  status: 'new',
+  user_id: user2.id
+)
