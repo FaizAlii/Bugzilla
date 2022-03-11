@@ -2,16 +2,13 @@
 
 class ProjectAssignmentsController < ApplicationController
   before_action :set_params, except: :new
-  before_action :set_new_params, only: :new
   before_action :authorize_project, only: :new
 
   def new
-    @users = @users.search_by_name_and_email(params[:search]) if params[:search].present?
-
-    respond_to do |format|
-      format.js
-      format.html
-    end
+    @user_type = params[:user_type]
+    @project = Project.find(params[:project_id])
+    @users = User.unassigned_users(params[:project_id]).with_role(@user_type)
+    @project_assignment = ProjectAssignment.new
   end
 
   def create
@@ -48,13 +45,6 @@ class ProjectAssignmentsController < ApplicationController
     @project = Project.find(params[:project_id])
     @user = User.find(params[:user_id])
     @user_type = params[:user_type]
-  end
-
-  def set_new_params
-    @user_type = params[:user_type]
-    @project = Project.find(params[:project_id])
-    @users = User.unassigned_users(params[:project_id]).with_role(@user_type)
-    @project_assignment = ProjectAssignment.new
   end
 
   def authorize_project

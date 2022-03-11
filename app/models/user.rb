@@ -2,7 +2,6 @@
 
 class User < ApplicationRecord
   rolify
-  include PgSearch::Model
 
   has_many :project_assignments, dependent: :destroy
   has_many :projects, through: :project_assignments
@@ -27,8 +26,6 @@ class User < ApplicationRecord
   def user_must_select_atleast_one_role
     errors.add(:role, ':Atleast one must be checked') if role_ids.empty?
   end
-
-  pg_search_scope :search_by_name_and_email, against: %i[name email], using: { tsearch: { prefix: true } }
 
   scope :unassigned_users, ->(project_id) { where.not(id: Project.find(project_id).users).distinct }
 end
