@@ -2,7 +2,6 @@
 
 class ProjectAssignmentsController < ApplicationController
   before_action :set_params, except: :new
-  before_action :authorize_project, only: :new
 
   def new
     @user_type = params[:user_type]
