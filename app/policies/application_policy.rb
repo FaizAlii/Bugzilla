@@ -8,33 +8,19 @@ class ApplicationPolicy
     @record = record
   end
 
-  def index?
-    false
-  end
+  def index?; end
 
-  def show?
-    false
-  end
+  def show?; end
 
-  def create?
-    false
-  end
+  def create?; end
 
-  def new?
-    create?
-  end
+  def new?; end
 
-  def update?
-    false
-  end
+  def update?; end
 
-  def edit?
-    update?
-  end
+  def edit?; end
 
-  def destroy?
-    false
-  end
+  def destroy?; end
 
   class Scope
     def initialize(user, scope)
@@ -42,9 +28,7 @@ class ApplicationPolicy
       @scope = scope
     end
 
-    def resolve
-      raise NotImplementedError, "You must define #resolve in #{self.class}"
-    end
+    def resolve; end
 
     private
 

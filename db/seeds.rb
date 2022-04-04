@@ -64,17 +64,15 @@ ProjectAssignment.create!(
 
 Bug.destroy_all
 
-bug1 = project1.bugs.create!(
+project1.bugs.create!(
   title: 'New Bug',
   description: 'This is a new bug.',
   deadline: Date.tomorrow.in_time_zone.change(hour: 11),
   bug_type: 'bug',
   status: 'new',
-  user_id: user2.id
+  user_id: user2.id,
+  dev_id: user3.id
 )
-
-bug1.dev_id = user3.id
-bug1.save!
 
 project2.bugs.create!(
   title: 'New Bug on Project 2',
